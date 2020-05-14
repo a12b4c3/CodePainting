@@ -20,5 +20,33 @@
     </div>
 </div>
 
+
+<div id="firebase-auth-container">
+    <!--this is where the login ui will load -->
+
+</div>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD075n8U5D4PCbMd52tbVMhxk_DhxrOjW4",
+        authDomain: "codepainting-3bb27.firebaseapp.com",
+        databaseURL: "https://codepainting-3bb27.firebaseio.com",
+        projectId: "codepainting-3bb27",
+        storageBucket: "codepainting-3bb27.appspot.com",
+        messagingSenderId: "967150166607",
+        appId: "1:967150166607:web:64aa14ee9d017d94ff403a",
+        measurementId: "G-R4VNGKY5KB"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+Overview...
+OBJECT(PARAMS*)
+
+OBJECT (everything on the canvas)
+background
+square
+circle
+star
+cloud
+heart
+
+this language is always initialized with an object followed by the parameters which specify the object. Parameters are optional, as no specification will result in default values being chosen. Order of the parameters is inconsequential.
+
+UNIVERSAL PARAMETERS (all objects support the following parameters)
+red channel intensity... 	r = <0-255>
+green channel intensity... 	g = <0-255>
+blue channel intensity... 	b = <0-255>
+
+SELECTIVE PARAMETERS (some objects support the following parameters)
+rotation of the object...	rotate = <0-360> (larger numbers should be mod to 360)
+opacity of the object...	opacity = <0-100> (0 means transparent, 100 means complete opaque)
+object position, x axis...	x = <0-canvas width px>
+object position, y axis...	y = <0-canvas height px> 
+	Note: the position is denoted by the top left most corner of the object, all objects are treated as rectangles.
+	ie. a circle with radius 5
+
+
+Some examples of supported commands...
+
+change the background color of the canvas to a solid color
+[1] Background
+
+- background color, defined by rgb. Not all parameters are mandatory, missing parameters will be changed to default value.
+eg.a. background(r=230, g=255, b=123)		// all parameters given
+eg.b. background(r=123) 			// some parameters given, implies background(r=123, g=0, b=0)
+eg.c. background()				// no parameters given implies background(r=0, g=0, b=0)
+eg.d. background(b=123, r=230, g=255)		// same as example a. Order does not matter.
+
+[2] Objects (all)
+
+- all objects should support all universal parameters as well as selective parameters
+
+eg.a. heart(r=123, g=345, rotate=30, opacity=50)	// is equivalent to heart(r=123, g=0, b=0, rotate=30, opacity=50, x=0, y=0)
+eg.b. heart()						// is equivalent(r=0, g=0, b=0, rotate=0, opacity=100, x=0, y=0)
+
+
+some examples of unsupported commands...
+eg.a. background(r=220, r=230) 			//duplicate parameters within one command
+eg.b. background(a=1234)			// unallowed parameter (for this project)
+eg.c. background(rotate=123)			// unallowed parameter (for this obj)
+eg.d. background(r=345)				// invalid value for specified parameter 0 <= r <= 255

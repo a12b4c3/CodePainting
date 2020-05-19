@@ -1,51 +1,142 @@
-Overview...
-OBJECT(PARAMS*)
+Goal: CodePainting is designed to let gradeschool students learn to code, through a fun and intuitive language. It should be easy to understand, requiring little knowledge of programming. It should be visual.
 
-OBJECT (everything on the canvas)
-background
-square
-circle
-star
-cloud
-heart
+Overview: Users can paint with default line art images (oval, square, circle, etc), or svg images (emojis), and add text onto the canvas. 
 
-this language is always initialized with an object followed by the parameters which specify the object. Parameters are optional, as no specification will result in default values being chosen. Order of the parameters is inconsequential.
+Design goals:
+* easy to learn (few commands)
+* code should be self 
 
-UNIVERSAL PARAMETERS (all objects support the following parameters)
-red channel intensity... 	r = <0-255>
-green channel intensity... 	g = <0-255>
-blue channel intensity... 	b = <0-255>
+Language definition:
+* every newline should constitute a new command. The grammar should be simple and follows the following layout.
+* assume that the canvas height and canvas width are canvas.height and canvas.width, respectively.
+* parameters should not be case sensitive, or order sensitive.
+* duplicate commands will all be executed. (see example)
+* duplicate parameters will result in an error message.
+* invalid parameters or parameter values will result in an error message.
+* every xPARAM has a default value that will be used if no values are given by the user.
 
-SELECTIVE PARAMETERS (some objects support the following parameters)
-rotation of the object...	rotate = <0-360> (larger numbers should be mod to 360)
-opacity of the object...	opacity = <0-100> (0 means transparent, 100 means complete opaque)
-object position, x axis...	x = <0-canvas width px>
-object position, y axis...	y = <0-canvas height px> 
-	Note: the position is denoted by the top left most corner of the object, all objects are treated as rectangles.
-	ie. a circle with radius 5
+PROGRAM ::- IMG(UPARAM? "name="STRING) | ART(UPARAM | PPARAM)? | "background="(COLOR) | TEXT(TPARAM)?
+IMG 	::- STRING
+ART 	::- "cloud" | "oval" | "star" | "rectangle" | "circle"
+UPARAM 	::- ("x=" [0-CANVAS.HEIGHT]) | ("y="[0-CANVAS.HEIGHT]) | ("w="[0-CANVAS.HEIGHT]) | ("h="[0-CANVAS.HEIGHT]) |
+	    ("rotation=" INTEGER)
+PPARAM 	::- "fillcolor=" COLOR | "linecolor=" COLOR | "linethickness=" [0-10]
+COLOR 	::- "color=" [140 named colors] | "r=" [0-255] | "g=" [0-255] | "b=" [0-255]
+TPARAM 	::- "font=" FONTS| "textsize="[0-65] | "textcolor=" COLOR | "linecolor=" COLOR | "msg=" STRING
+FONTS 	::- "comicsans" | "calibri" | "timesnewroman"
+
+BACKGROUND
+* if no background color is specified, the background color is changed to "white" from lightgray, to emphasize that an image has been rendered.
+
+UPARAM
+* refer to Universal PARAMeters, these parameters can be applied to every element in the canvas.
+	parameter	sample default values		unit
+	x		<random [0-canvas.width]>	px
+	y		<random [0-canvas.height]>	px
+	w		<default obj value>		px
+	h		<default obj value>		px
+	rotation	0				deg
+
+PPARAM
+* refer to Partial PARAMeters, these parameters can only be applied to certain elements in the canvas.
+	eg. html line elements
+	
+	parameter	sample default values		unit
+	fillcolor	white				n/a
+	linecolor	black				n/a
+	linethickness	3				point
+
+TPARAM
+* refer to Text PARAMeters. these parameters apply only to text elements in the canvas.
+	parameter	sample default values		unit
+	msg		"customize your message!"	n/a
+	textsize	13				point
+	font		calibri				n/a
+	textcolor	black				n/a
+	linecolor	none				n/a
+	
+Image layering:
+* commands at the top (those executed first), will be considered to be a layer below those commands issued later.
+eg. to create a thought bubble with some text, the following order would be appropriate.
+	cloud(x=100 y=100 w=300 h=60 color=white)
+	text(msg="i wonder if this works.." textsize=15 font=calibri)
+eg. the following would not be appropriate, since the cloud would cover the text.
+	text(msg="i wonder if this works.." textsize=15 font=calibri)
+	cloud(x=100 y=100 w=300 h=60 color=white)
+
+Valid commands
+* note the case-insensitivity, lack of rigid spacing requirement (color=blueviolet is equivalent to color  = blueviolet), and lack of rigid ordering requirements. 
+
+* painting 1
+	background(color = blueviolet)					// sets background to blueviolet color #8A2BE2
+	star(x=20 y=10 w=10 h=20 rotation=30 fillcolor=yellow)		// will put a yellow star at xy of size wh
+	STAR()								// will randomly put a white star anywhere
+	Background(color = burlywood)					// sets the background to burlywood #DEB887
+	
+* painting 2
+	squAreE(w=700 h=350 color=blue y=350 )				// paints a "sky" on half the image
+	iMg(name=heart x=300 y=200 w=150 h=150)				// puts svg image of a hear at xy of size wh
+	text(msg="i love you!" x=350 y=350 textsize=13 textcolor=purple)// creates an i love you message.
+			
+
+Invalid commands
+bakground(color = blueviolet)						// not a supported command
+background(color = hello)						// invalid named color
+background(r= hello)							// invalid value type provided for given parameter
+background(color= blueviolet color= yellow)				// duplicate parameters are invalid
+background(x=12 y=30)							// given command does not support gven parameters
 
 
-Some examples of supported commands...
-
-change the background color of the canvas to a solid color
-[1] Background
-
-- background color, defined by rgb. Not all parameters are mandatory, missing parameters will be changed to default value.
-eg.a. background(r=230, g=255, b=123)		// all parameters given
-eg.b. background(r=123) 			// some parameters given, implies background(r=123, g=0, b=0)
-eg.c. background()				// no parameters given implies background(r=0, g=0, b=0)
-eg.d. background(b=123, r=230, g=255)		// same as example a. Order does not matter.
-
-[2] Objects (all)
-
-- all objects should support all universal parameters as well as selective parameters
-
-eg.a. heart(r=123, g=345, rotate=30, opacity=50)	// is equivalent to heart(r=123, g=0, b=0, rotate=30, opacity=50, x=0, y=0)
-eg.b. heart()						// is equivalent(r=0, g=0, b=0, rotate=0, opacity=100, x=0, y=0)
 
 
-some examples of unsupported commands...
-eg.a. background(r=220, r=230) 			//duplicate parameters within one command
-eg.b. background(a=1234)			// unallowed parameter (for this project)
-eg.c. background(rotate=123)			// unallowed parameter (for this obj)
-eg.d. background(r=345)				// invalid value for specified parameter 0 <= r <= 255
+asterisks (*) indicate base goals
+plus (+) indicate stretch goals
+
+Project Phases:
+1/ Input -> Commands
+this phase should take in commands from the textarea box as a long string, tokenize and parse it into separate commands, then validate each command.
+
+* reference UI - completed
+* tokenizer 
+* parser
+* validator
+
+2/ Commands -> Art/Img/Text
+The commands should be taken in and then painted onto a canvas.
+
+* design the ART elements using html line/path drawings.
+	> should be resizeable
+	> art elements should be placeable to specified locations.
+	> line colors should be customizable
+	> line thickness should be customizable
+	> background colors should be customizable
+	+ should be rotatable.
+* design the Text elements
+	> should be resizeable
+	> text elements should be placeable to specified locations.
+	> should be able to support 3 font styles (should make this extensible, easy to add new future styles)
+	> should be able to support different text sizes.
+	> should be able to support different text colors.
+	+ should be rotatable.
+* design the Image elements.
+	> emojis have been loaded to use as default svg elements.
+	> images should be resizeable
+	> images should be placeable.
+	+ should be rotatable.
+
+3/ Art/Img/Text -> HTMLCanvas2D Painting
+* the individual elements of the input should be combined and painted.
+* the end result should be painted onto the user's browser.
++ make the canvas size of any size (which can be resized, stretched, compressed to fit the browser's canvas area). 
+
+
+4/ Export
++ the image should be exportable in svg format. This can be used to create more complex drawings iteratively, when combined with an upload function.
++ user may upload their own svg files to the program. 
++ an additional 'image reference' site may be implemented to load all images from the ./src/images/ folder to show all svg files which may be pasted onto the canvas.
+
+
+5/ Future Possible Extensions
+* make it into a client-server model. All images loaded onto a database and stored there.
+* implement a login system to track each user's drawing.
+* implement more complex commands (eg. grouping).

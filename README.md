@@ -97,7 +97,43 @@ thoughtbubble(spdl)
 note that since each newly defined element is treated as a new element, it supports all of the same parameters as images (more on this later). 
 
 ## EBNF
+TODO!
 ```
 PROGRAM ::- (ART) "(" ARTPARAMS ")." ( OPERATOR "("OPERATOR PARAMETERS" ")"
 
 ```
+
+## The following types of elements are supported, and their possible parameters are described. The default values are also supplied for each paramter, as well as the unit each value is in.
+### Supported Art
+* circle
+* triangle (simple equilateral triangle)
+* rectangle
+
+#### Art paramters
+* linecolor (default: black)
+* linewidth (default: 1 point)
+* backgroundcolor (default: none)
+* x (default: 0)
+* y (default: 0)
+* w (default: canvas.width/20)
+* h (default: canvas.height/20)
+* rotation (default: 0deg)
+
+### Supported Img
+* preset svg images in ./src/images/
+
+#### Img parameters
+* x (default: 0)
+* y (default: 0)
+* scale (default: 1)
+* rotation (default: 0deg)
+
+### Supported Text
+* customizable text
+
+#### Text parameters
+* font (default: calibri)
+* fontsize (default: 13point)
+* fontcolor (default: black)
+* backgroundcolor (default: none)
+* rotation (default: 0deg)

@@ -2,11 +2,11 @@
 ## Goal
 Code painting is designed to let gradeschool students learn to code, through a fun and intuitive language. It should be easy to understand, requring little knowledge of programming. It should be visual, and use programming syntaxes similar to those seen in existing languages.
 ## Overview
-Users can paint with default line art images (circle, rectangle, cloud, star), svg images, or add text onto the canvas. All art, images, and text will be called 'elements'. Every line of input starts with an image, followed by zero or more operations, denoted using dot operatrs ('.'). Operations are commands which 'do' something with that image, such as repeatedly draw it across a screen, or draws it into the shape of a circle, or scatters it randomly over the screen.
+Users can paint with default line art images (circle, rectangle, cloud, star), svg images, or add text onto the canvas. All art, images, and text will be called 'elements'. Every line of input starts with an element, followed by zero or more operations, denoted using dot operaters ('.'). Operations are commands which 'do' something with that image, such as repeatedly draw it across a screen, or draws it into the shape of a circle, or scatters it randomly over the screen...etc.
 
 <b> types of elements </b>
-1. art - these are base images supplied by the program that can be manipulated with more granularity. eg. position, rotiation, the line color, line width, background color, etc...
-2. images - these are svg images which can be manipulated in a basic manner. eg. rotation, scale, position
+1. art - these are base elements supplied by the program that can be manipulated with more granularity. eg. position, rotiation, the line color, line width, background color, etc...
+2. images - these are svg images which can be manipulated in a basic manner. eg. rotation, scale, position. However, they are typically more rich in their color/styling.
 3. text - customizable text with some text specific things that can be changed. eg. text color, text background color.
 
 <b> examples of valid inputs </b>
@@ -22,7 +22,7 @@ Every operation has parameters which specify certain things about the element or
 ```
 star(x=0 y=0 scale=0.5).repeathorizontally(spacing=30 repeat=10)
 ```
-in the above examle, a star is put at (0,0) and is scaled to 50% of its default size. the star is the painted repeatedly 10 times across the screen, with each star being 30 pixels away from the next. 
+in the above examle, a star is put at (0,0) and is scaled to 50% of its default size. the star is the painted repeatedly 10 times across the screen, with each star being 30 pixels away from the previous. 
 
 ## General grammar layout and usage
 ### 1. every new line in the input describes the manipulation of a particular element.
@@ -49,7 +49,7 @@ Although the above is not particularly useful, we can chain different commands t
 ```
 star(<spdl>).repeathorizontally(<spdl>).repeatvertically(<spdl>)
 ```
-### 5. we can chain different operations together, since each operation yields a new picture, there is no practical limit on the types of chaining that can be done. Assume that we have an operation called <i>drawcircularly</i> that repeatedly paints paints the element in a circular pattern (think of the EU flag). The following would be valid input.
+### 5. we can chain different operations together, since each operation yields a new picture, there is no practical limit on the types of chaining that can be done. Assume that we have an operation called <i>drawcircularly</i> that repeatedly paints the element in a circular pattern (think of the EU flag). The following would be valid input.
 ```
 star(<spdl>).drawcircularly(<spdl>).repeathorizontally(<spdl>)
 ```

@@ -94,7 +94,7 @@ suppose the above element was defined, we can then use that element later on wit
 ```
 thoughtbubble(spdl)
 ```
-note that since each newly defined element is treated as a new element, it supports all of the same parameters as images (more on this later). 
+note that since each newly defined element is treated as a new element, it supports all of the same parameters as image elements ('img') (more on this later). 
 
 ## EBNF
 TODO!

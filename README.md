@@ -98,7 +98,7 @@ note that since each newly defined element is treated as a new element, it suppo
 
 ## EBNF
 ```
-PROGRAM ::- ELEMENT.OPERATION*
+PROGRAM ::- ELEMENT.OPERATION* | "//"STRING
 ELEMENT ::- ART | IMG | TEXT
 ART ::- ( "circle" | "triangle" | "rectangle" )(APARAMETER?)
 APARAMETER ::- "x" | "y" | "w" | "h" | "rotation" | "linecolor" | "linewidth" | "backgroundcolor"

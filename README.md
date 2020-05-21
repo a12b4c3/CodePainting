@@ -96,9 +96,15 @@ thoughtbubble(spdl)
 ```
 note that since each newly defined element is treated as a new element, it supports all of the same parameters as image elements ('img') (more on this later). 
 
+### 8. you can leave comments by entering "//" before a string. and terminating it with "//"
+```
+// this is a proper comment //
+// this comment is not terminated
+```
+
 ## EBNF
 ```
-PROGRAM ::- ELEMENT.OPERATION* | "//"STRING
+PROGRAM ::- ELEMENT.OPERATION* | "//"STRING"//"
 ELEMENT ::- ART | IMG | TEXT
 ART ::- ( "circle" | "triangle" | "rectangle" )(APARAMETER?)
 APARAMETER ::- "x" | "y" | "w" | "h" | "rotation" | "linecolor" | "linewidth" | "backgroundcolor"

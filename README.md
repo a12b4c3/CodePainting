@@ -97,10 +97,18 @@ thoughtbubble(spdl)
 note that since each newly defined element is treated as a new element, it supports all of the same parameters as image elements ('img') (more on this later). 
 
 ## EBNF
-TODO!
 ```
-PROGRAM ::- (ART) "(" ARTPARAMS ")." ( OPERATOR "("OPERATOR PARAMETERS" ")"
-
+PROGRAM ::- ELEMENT.OPERATION*
+ELEMENT ::- ART | IMG | TEXT
+ART ::- ( "circle" | "triangle" | "rectangle" )(APARAMETER?)
+APARAMETER ::- "x" | "y" | "w" | "h" | "rotation" | "linecolor" | "linewidth" | "backgroundcolor"
+IMG ::- "img"(IPARAMETER?)
+IPARAMETER ::- "x" | "y" | "scale" | "rotation"
+TEXT ::- "text"(TPARAMETER)
+TPARAMETER ::- "font" | "fontsize" | "fontcolor" | "backgroundcolor" | "rotation"
+OPERATION ::- OPERATOR(OPARAMETER?)
+OPERATOR ::- "repeathorizontally" | "repeatvertically" | "scatter" | "drawcircularly"
+OPARAMETER ::- <<depends on the operator...>>
 ```
 
 ## The following types of elements are supported, and their possible parameters are described. The default values are also supplied for each paramter, as well as the unit each value is in.

@@ -102,6 +102,30 @@ note that since each newly defined element is treated as a new element, it suppo
 // this comment is not terminated
 ```
 
+### 9. spacing and newlines matters when inputting commands!
+* recall that every newline ('\n') involves the manipulation of one image. 
+The following are valid inputs
+```
+circle()
+rectangle()
+triangle()
+```
+The following are invalid inputs
+```
+circle() rectangle() triangle()
+```
+* parameters have strict spacing requirements
+1. each parameter specification must be separated by <i> atleast <b>one</b> space</i> from the next parameter. However, whether there are more than one spacing is inconsequential. 
+2. parameters are case-sensitive. ie. h=12 is not the same as H=12.
+the following are valid ways of entering parameters for each element.
+```
+star( x=12 y=32 w=29 h=239)
+star(x=12    y=32 w=29     h=30)
+```
+the following are invalid ways of entering parameters for each element.
+```
+star( x  = 12 y= 32 w =29 h=  239)
+```
 ## EBNF
 ```
 PROGRAM ::- ELEMENT.OPERATION* | "//"STRING"//"

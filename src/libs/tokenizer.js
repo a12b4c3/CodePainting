@@ -12,11 +12,11 @@ export * from 'Tokenizer';
 
 export default class Tokenizer {
 
-    program;  // string
-    literals; // List<String>
-    tokens; // String[]
-    currentToken; // int
-    static theTokenizer; // Tokenizer
+    program: string;  // string
+    literals: any; // List<String>
+    tokens: any; // String[]
+    currentToken: number; // int
+    static theTokenizer: any; // Tokenizer
 
     constructor(input, literalsList) {
         this.literals = literalsList;

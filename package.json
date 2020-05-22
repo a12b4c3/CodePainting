@@ -1,0 +1,11 @@
+{
+  "name": "CodePainting",
+  "version": "1.0.0",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}

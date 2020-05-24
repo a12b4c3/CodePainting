@@ -3,7 +3,7 @@
  **/
 import tokenizer from "../libs/tokenizer";
 
-class Program extends Node {
+class PROGRAM extends Node {
 
     constructor() {
         super();
@@ -14,7 +14,29 @@ class Program extends Node {
      * Override function
      * parse
      */
-    parse(){
+    parse(tokenizer){
+        while(tokenizer.moreTokens()){
+            let element = tokenizer.getNext();
+            let s = null;
+            if(element === "art"){
+                s = new ART();
+            }
+            else if(element === "img"){
+                s = new IMG();
+            }
+            else if (element === "text"){
+                s = new TEXT();
+            }
+            else if (element === "."){
+                let op = tokenizer.getNext();
+                s = new OPERATION(op);
+            }
+            else {
+                throw new Error("invalid inputs");
+            }
+            s.parse(tokenizer);
+            this.list.push(s);
+        }
     }
 
     /**

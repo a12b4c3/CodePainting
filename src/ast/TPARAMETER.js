@@ -3,18 +3,21 @@
  **/
 import tokenizer from "../libs/tokenizer";
 
-class TParameter extends Node {
+class TPARAMETER extends Node {
 
-    constructor() {
+    constructor(name) {
         super();
-        this.list = [];
+        this.name = name;
+        this.value = -1;
     }
 
     /**
      * Override function
      * parse
      */
-    parse(){
+    parse(tokenizer){
+        tokenizer.getAndCheckNext("=");
+        this.value = tokenizer.getNext();
     }
 
     /**

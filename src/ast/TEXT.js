@@ -3,7 +3,7 @@
  **/
 import tokenizer from "../libs/tokenizer";
 
-class Text extends Node {
+class TEXT extends Node {
 
     constructor() {
         super();
@@ -14,7 +14,23 @@ class Text extends Node {
      * Override function
      * parse
      */
-    parse(){
+    parse(tokenizer){
+        tokenizer.getAndCheckNext("(");
+
+        while(!tokenizer.checkNext(")")){
+            let s = null;
+            let tmp = tokenizer.getNext();
+            if(tmp === "font"){ s = new TPARAMETER(tmp); }
+            else if(tmp === "fontsize"){ s = new TPARAMETER(tmp); }
+            else if(tmp === "fontcolor"){s = new TPARAMETER(tmp);}
+            else if(tmp === "backgroundcolor"){s = new TPARAMETER(tmp);}
+            else if(tmp === "rotation"){s = new TPARAMETER(tmp);}
+            else {
+                throw new Error("invalid input");
+            }
+            s.parse(tokenizer);
+            this.list.push(s);
+        }
     }
 
     /**

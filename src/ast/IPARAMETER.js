@@ -5,16 +5,22 @@ import tokenizer from "../libs/tokenizer";
 
 class IParameter extends Node {
 
-    constructor() {
+    constructor(name) {
         super();
-        this.list = [];
+        this.name = name;
+        this.value = -1;
     }
 
     /**
      * Override function
      * parse
      */
-    parse(){
+    parse(tokenizer){
+        if(this.name === "name"){
+            return;
+        }
+        tokenizer.getAndCheckNext("=");
+        this.value = tokenizer.getNext();
     }
 
     /**

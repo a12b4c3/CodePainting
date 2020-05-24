@@ -3,18 +3,20 @@
  **/
 import tokenizer from "../libs/tokenizer";
 
-class OParameter extends Node {
+class OPARAMETER extends Node {
 
     constructor() {
         super();
-        this.list = [];
     }
 
     /**
      * Override function
      * parse
      */
-    parse(){
+    parse(tokenizer){
+        this.name= tokenizer.getNext();
+        tokenizer.getAndCheckNext("=");
+        this.value = tokenizer.getNext();
     }
 
     /**

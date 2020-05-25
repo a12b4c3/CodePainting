@@ -13,10 +13,16 @@ const dContext = dynamicCanvas.getDContext();
 // listeners
 SUBMIT_BUTTON.addEventListener("click", main);
 
+// list of literals
+
 
 // function definitions
 function main() {
     let input_code = PAINT_CODE.value;
+    let tokenizer = new Tokenizer(input_code, literals);
+}
+
+function testcode() {
     dCanvas.clearDContext();
     dContext.fillStyle = 'lightsalmon';
     dContext.fillRect(0,0,700,700);
@@ -52,14 +58,13 @@ function main() {
         drawImageToCanvas(img, 260,100,0.05,0,dContext);
         drawImageToCanvas(img, 300,100,0.05,0,dContext);
 
-        dCanvas.mergeToCanvas(mainContext, 0, 80);
+        dCanvas.mergeToCanvas(mainContext);
         dCanvas.mergeToCanvas(mainContext, 0, 80);
         dCanvas.mergeToCanvas(mainContext, 0, 160);
         dCanvas.mergeToCanvas(mainContext, 0, 240);
     }
     img.src = './images/star.svg'
 }
-
 
 
 // const canvas1 = document.createElement('canvas');

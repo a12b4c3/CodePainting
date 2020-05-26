@@ -1,20 +1,23 @@
 /**
  Program class
  **/
-import tokenizer from "../libs/tokenizer";
 
-class PROGRAM extends Node {
+import Tokenizer from "../libs/tokenizer.js";
+import ART from "../ast/ART.js";
+
+class PROGRAM {
+    _elements;
 
     constructor() {
-        super();
-        this.list = [];
+        this._elements = [];
     }
 
     /**
      * Override function
      * parse
      */
-    parse(tokenizer){
+    parse(){
+        const tokenizer = Tokenizer.getTokenizer();
         while(tokenizer.moreTokens()){
             let element = tokenizer.getNext();
             let s = null;
@@ -35,7 +38,7 @@ class PROGRAM extends Node {
                 throw new Error("invalid inputs");
             }
             s.parse(tokenizer);
-            this.list.push(s);
+            this._elements.push(s);
         }
     }
 
@@ -46,3 +49,5 @@ class PROGRAM extends Node {
     evaluate() {
     }
 }
+
+export default PROGRAM;

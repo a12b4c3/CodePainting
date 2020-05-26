@@ -12,26 +12,60 @@
 /**
  AParameter class
  **/
-import tokenizer from "../libs/tokenizer";
+import Tokenizer from "../libs/tokenizer.js";
+import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
 
-class IPARAMETER extends Node {
+class APARAMETER {
+    _shapename = ""             // rectangle or circle
+    _linecolor = "black";   // string (html named colors)
+    _linewidth = 3;         // int (pixels)
+    _backgroundcolor = 'undef';  // string (html named colors)
+    _x = 0;                 // int (x-dim)
+    _y = 0;                 // int (y-dim)
+    _w = 100;               // int (pixels)
+    _h = 100;               // int (pixels)
+    _rotation = 0;          // int (degrees)
 
-    constructor() {
-        super(name);
-        this.name = name;
-        this.value = -1;
-    }
 
     /**
      * Override function
      * parse
      */
-    parse(tokenizer){
-        if(this.name === "name"){
-            return;
+    parse(){
+        const tokenizer = Tokenizer.getTokenizer();
+        tokenizer.getAndCheckNext("(");
+        while(!tokenizer.checkToken("\\)")) {
+            if (tokenizer.checkToken("shapename")) {
+                tokenizer.getAndCheckNext("=");
+                this._shapename = tokenizer.getNext();
+            } else if (tokenizer.checkToken("linecolor")) {
+                tokenizer.getAndCheckNext("=");
+                this._linecolor = tokenizer.getNext();
+            } else if (tokenizer.checkToken("linewidth")) {
+                tokenizer.getAndCheckNext("=");
+                this._linewidth = tokenizer.getNext();
+            } else if (tokenizer.checkToken("backgroundcolour")) {
+                tokenizer.getAndCheckNext("=");
+                this._backgroundcolor = tokenizer.getNext();
+            } else if (tokenizer.checkToken("x")) {
+                tokenizer.getAndCheckNext("=");
+                this._x = tokenizer.getNext();
+            } else if (tokenizer.checkToken("y")) {
+                tokenizer.getAndCheckNext("=");
+                this._y = tokenizer.getNext();
+            } else if (tokenizer.checkToken("w")) {
+                tokenizer.getAndCheckNext("=");
+                this._w = tokenizer.getNext();
+            } else if (tokenizer.checkToken("h")) {
+                tokenizer.getAndCheckNext("=");
+                this._h = tokenizer.getNext();
+            } else if (tokenizer.checkToken("rotation")) {
+                tokenizer.getAndCheckNext("=");
+                this._rotation = tokenizer.getNext();
+            } else {
+                ThrowInvalidArtParameterError(tokenizer.getNext());
+            }
         }
-        tokenizer.getAndCheckNext("=");
-        this.value = tokenizer.getNext();
     }
 
     /**
@@ -39,5 +73,8 @@ class IPARAMETER extends Node {
      * evaluate
      */
     evaluate() {
+
     }
 }
+
+export default APARAMETER

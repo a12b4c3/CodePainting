@@ -1,39 +1,23 @@
 /**
  Art class
  **/
-import tokenizer from "../libs/tokenizer";
+import Tokenizer from "../libs/tokenizer.js";
+import APARAMETER from "./APARAMETER.js";
 
-class ART extends Node {
-
-    constructor() {
-        super();
-        this.list = [];
-    }
+class ART {
+    _artParameter; // APARAMETER
 
     /**
      * Override function
      * parse
      */
-    parse(tokenizer){
+    parse(){
+        const tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("(");
 
-        while(!tokenizer.checkNext(")")){
-            let s = null;
-            let tmp = tokenizer.getNext();
-            if(tmp === "x"){ s = new APARAMETER(tmp); }
-            else if(tmp === "y"){ s = new APARAMETER(tmp); }
-            else if(tmp === "w"){s = new APARAMETER(tmp);}
-            else if(tmp === "h"){s = new APARAMETER(tmp);}
-            else if(tmp === "rotation"){s = new APARAMETER(tmp);}
-            else if(tmp === "linecolor"){s = new APARAMETER(tmp);}
-            else if(tmp === "linewidth"){s = new APARAMETER(tmp);}
-            else if(tmp === "backgroundcolor"){s = new APARAMETER(tmp);}
-            else if(tmp === "name"){s = new APARAMETER(tmp);}
-            else {
-                throw new Error("invalid input");
-            }
-            s.parse(tokenizer);
-            this.list.push(s);
+        while(!tokenizer.checkToken(")")){
+            this._artParameter = new APARAMETER();
+            this._artParameter.parse();
         }
     }
 
@@ -44,3 +28,5 @@ class ART extends Node {
     evaluate() {
     }
 }
+
+export default ART

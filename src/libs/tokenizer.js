@@ -19,12 +19,13 @@ class Tokenizer {
     static theTokenizer; // Tokenizer
 
     constructor(input, literalsList) {
+        this.currentToken = 0;
         this.literals = literalsList;
         this.program = input; // input string from user
-        this.tokenize();
+        this._tokenize();
     }
 
-    tokenize() {
+    _tokenize() {
         //0. Pick some RESERVEDWORD (string which never occurs in your input) : we'll use _
         //1. Read the whole program into a single string; kill the newlines
         // keeping newlines.
@@ -34,13 +35,15 @@ class Tokenizer {
         console.log(tokenizedProgram);
         //2. Replace all constant literals with “RESERVEDWORD”<the literal>“RESERVEDWORD”
         for(let s of this.literals) {
-            tokenizedProgram = TokenizerUtils.markAllLiterals(tokenizedProgram, s);
+            tokenizedProgram = TokenizerUtils.markAllLiteral(tokenizedProgram, s);
             console.log(tokenizedProgram);
         }
+        tokenizedProgram = tokenizedProgram.replace(/ /g, "");
         tokenizedProgram = tokenizedProgram.replace(/\\/g, "");
         //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
 
-        tokenizedProgram = TokenizerUtils.replaceAll(tokenizedProgram, "__","_");
+        // tokenizedProgram = TokenizerUtils.replaceAll(tokenizedProgram, "__","_");
+        tokenizedProgram = tokenizedProgram.replace(/_{1,}/g, "_");
         console.log(tokenizedProgram);
         //4. Remove leading “_” character, then split on “_”
         if(tokenizedProgram.length > 0 && tokenizedProgram.charAt(0) === '_') {
@@ -55,7 +58,7 @@ class Tokenizer {
         console.log(this.tokens);
     }
 
-    checkNext() {
+    _checkNext() {
         let token = "";
         if (this.currentToken < this.tokens.length){
             token = this.tokens[this.currentToken];
@@ -77,7 +80,7 @@ class Tokenizer {
     }
 
     checkToken(regexp) {
-        let s = this.checkNext();
+        let s = this._checkNext();
         console.log("comparing: |" + s + "|  to  |" + regexp + "|");
         return s === regexp;
     }

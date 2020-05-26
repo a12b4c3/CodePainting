@@ -1,5 +1,6 @@
 import dynamicCanvas from '../libs/DynamicCanvas.js';
 import Tokenizer from "../libs/tokenizer.js";
+import PROGRAM from "../ast/PROGRAM.js";
 
 // constant definitions
 const mainCanvas = document.getElementById('canvas');
@@ -15,11 +16,14 @@ const dContext = dynamicCanvas.getDContext();
 SUBMIT_BUTTON.addEventListener("click", main);
 
 // list of literals
-const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\."];
-// const artParamLiterals = ["linecolor=", "linewidth=", "backgroundcolor=", "x=", "y=", "w=", "h=", "rotation="];
-// const repeatHorizontallyParamLiterals = ["spacing=", "repeat="];
-// const repeatVerticallyParamLiterals = ["spacing=", "repeat="];
-// const scatterRandomlyParamLiterals = [""];
+const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " "];
+const artParamLiterals = [];
+const textParamLiterals = [];
+const imgParamLiterals = [];
+
+// TODO remove this after testing is done
+document.getElementById('paintcode').innerText = "art(name='hello' x=10 y=10 w=100 h=100)\n img(name='star' scale=1).repeathorizontally(spacing=10 repeat=10)\n text(comment='hello how are you')";
+
 
 // function definitions
 function main() {
@@ -30,8 +34,10 @@ function main() {
         let literals = buildLiteralsList();
         Tokenizer.makeTokenizer(input_code, literals);
         console.log(Tokenizer.getTokenizer().tokens);
+        let p = new PROGRAM();
+        p.parse();
     } else {
-        console.log('No input code, type something!');
+        alert('No input code, type something!');
     }
 }
 

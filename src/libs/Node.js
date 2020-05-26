@@ -6,14 +6,11 @@
 
 class Node {
 
-    constructor() {
-
-    if(this.constructor === Node) {
-        throw new Error("this is abstract class");
-    }
-
-
-    }
+    // constructor() {
+    //     if(this.constructor === Node) {
+    //         throw new Error("this is abstract class");
+    //     }
+    // }
 
     parse() {
         throw new Error ("this is abstract function");

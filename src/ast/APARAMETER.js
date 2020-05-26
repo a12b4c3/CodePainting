@@ -31,35 +31,37 @@ class APARAMETER {
      * Override function
      * parse
      */
-    parse(){
+    parse() {
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("(");
-        while(!tokenizer.checkToken("\\)")) {
-            if (tokenizer.checkToken("shapename")) {
+
+        while (!tokenizer.checkToken(")")) {
+            let tok = tokenizer.getNext();
+            if (tok === "shapename") {
                 tokenizer.getAndCheckNext("=");
                 this._shapename = tokenizer.getNext();
-            } else if (tokenizer.checkToken("linecolor")) {
+            } else if (tok === "linecolor") {
                 tokenizer.getAndCheckNext("=");
                 this._linecolor = tokenizer.getNext();
-            } else if (tokenizer.checkToken("linewidth")) {
+            } else if (tok === "linewidth") {
                 tokenizer.getAndCheckNext("=");
                 this._linewidth = tokenizer.getNext();
-            } else if (tokenizer.checkToken("backgroundcolour")) {
+            } else if (tok === "backgroundcolour") {
                 tokenizer.getAndCheckNext("=");
                 this._backgroundcolor = tokenizer.getNext();
-            } else if (tokenizer.checkToken("x")) {
+            } else if (tok === "x") {
                 tokenizer.getAndCheckNext("=");
                 this._x = tokenizer.getNext();
-            } else if (tokenizer.checkToken("y")) {
+            } else if (tok === "y") {
                 tokenizer.getAndCheckNext("=");
                 this._y = tokenizer.getNext();
-            } else if (tokenizer.checkToken("w")) {
+            } else if (tok === "w") {
                 tokenizer.getAndCheckNext("=");
                 this._w = tokenizer.getNext();
-            } else if (tokenizer.checkToken("h")) {
+            } else if (tok === "h") {
                 tokenizer.getAndCheckNext("=");
                 this._h = tokenizer.getNext();
-            } else if (tokenizer.checkToken("rotation")) {
+            } else if (tok === "rotation") {
                 tokenizer.getAndCheckNext("=");
                 this._rotation = tokenizer.getNext();
             } else {

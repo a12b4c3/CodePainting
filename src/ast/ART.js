@@ -13,7 +13,7 @@ class ART {
      */
     parse(){
         const tokenizer = Tokenizer.getTokenizer();
-        tokenizer.getAndCheckNext("(");
+        tokenizer.checkToken("(");
 
         while(!tokenizer.checkToken(")")){
             this._artParameter = new APARAMETER();

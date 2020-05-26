@@ -4,6 +4,7 @@
 
 import Tokenizer from "../libs/tokenizer.js";
 import ART from "../ast/ART.js";
+import IMG from "../ast/IMG.js";
 
 class PROGRAM {
     _elements;

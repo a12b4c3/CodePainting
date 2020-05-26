@@ -149,13 +149,14 @@ OPARAMETER ::- <<depends on the operator...>>
 
 #### Art paramters
 * linecolor (default: black)
-* linewidth (default: 1 point)
+* linewidth (default: 3 px)
 * backgroundcolor (default: none)
 * x (default: 0)
 * y (default: 0)
-* w (default: canvas.width/20)
-* h (default: canvas.height/20)
+* w (default: 100)
+* h (default: 100)
 * rotation (default: 0deg)
+* shapename (circle | rectangle, string)
 
 ### Supported Img
 * preset svg images in ./src/images/
@@ -165,6 +166,7 @@ OPARAMETER ::- <<depends on the operator...>>
 * y (default: 0)
 * scale (default: 1)
 * rotation (default: 0deg)
+* name (filename, string)
 
 ### Supported Text
 * customizable text

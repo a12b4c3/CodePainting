@@ -1,7 +1,7 @@
 /**
  Img class
  **/
-import tokenizer from "../libs/tokenizer";
+import Tokenizer from "../libs/tokenizer.js";
 
 class IMG extends Node {
 
@@ -40,3 +40,5 @@ class IMG extends Node {
     evaluate() {
     }
 }
+
+export default Tokenizer

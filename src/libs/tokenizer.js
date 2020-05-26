@@ -8,9 +8,9 @@
      img(name = "handwaving" size=20 scale=0.5 )
  */
 
-export * from 'Tokenizer';
+import TokenizerUtils from "./TokenizerUtils.js";
 
-export default class Tokenizer {
+class Tokenizer {
 
     program;  // string
     literals; // List<String>
@@ -27,19 +27,24 @@ export default class Tokenizer {
     tokenize() {
         //0. Pick some RESERVEDWORD (string which never occurs in your input) : we'll use _
         //1. Read the whole program into a single string; kill the newlines
-        let tokenizedProgram = this.program.replace("\n", "");
+        // keeping newlines.
+
+            // let tokenizedProgram = this.program.replace("\n", "");
+        let tokenizedProgram = TokenizerUtils.replaceAll(this.program, "\n", "");
         console.log(tokenizedProgram);
         //2. Replace all constant literals with “RESERVEDWORD”<the literal>“RESERVEDWORD”
         for(let s of this.literals) {
-            tokenizedProgram = tokenizedProgram.replace(s, "_" + s + "_");
+            tokenizedProgram = TokenizerUtils.markAllLiterals(tokenizedProgram, s);
             console.log(tokenizedProgram);
         }
+        tokenizedProgram = tokenizedProgram.replace(/\\/g, "");
         //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
-        tokenizedProgram = tokenizedProgram.replace("__","_");
+
+        tokenizedProgram = TokenizerUtils.replaceAll(tokenizedProgram, "__","_");
         console.log(tokenizedProgram);
         //4. Remove leading “_” character, then split on “_”
-        if(tokenizedProgram.length() > 0 && tokenizedProgram.charAt(0) === '_') {
-            tokenizedProgram = tokenizedProgram.substring(1); // without first character
+        if(tokenizedProgram.length > 0 && tokenizedProgram.charAt(0) === '_') {
+            tokenizedProgram = tokenizedProgram.substring(1, tokenizedProgram.length-1); // without first character
         }
         this.tokens = tokenizedProgram.split("_");
         console.log(this.tokens);
@@ -101,3 +106,5 @@ export default class Tokenizer {
     }
 
 }
+
+export default Tokenizer;

@@ -12,6 +12,7 @@ class ART {
      * parse
      */
     parse(){
+        console.log("I am parsing art")
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.checkToken("(");
 
@@ -19,6 +20,7 @@ class ART {
             this._artParameter = new APARAMETER();
             this._artParameter.parse();
         }
+        tokenizer.getNext();
     }
 
     /**
@@ -29,4 +31,4 @@ class ART {
     }
 }
 
-export default ART
+export default ART;

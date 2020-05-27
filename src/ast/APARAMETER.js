@@ -79,4 +79,4 @@ class APARAMETER {
     }
 }
 
-export default APARAMETER
+export default APARAMETER;

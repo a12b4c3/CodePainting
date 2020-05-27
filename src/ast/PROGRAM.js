@@ -5,6 +5,8 @@
 import Tokenizer from "../libs/tokenizer.js";
 import ART from "../ast/ART.js";
 import IMG from "../ast/IMG.js";
+import TEXT from "../ast/TEXT.js";
+import OPERATION from "./OPERATION.js";
 
 class PROGRAM {
     _elements;
@@ -21,6 +23,7 @@ class PROGRAM {
         const tokenizer = Tokenizer.getTokenizer();
         while(tokenizer.moreTokens()){
             let element = tokenizer.getNext();
+            console.log(element);
             let s = null;
             if(element === "art"){
                 s = new ART();
@@ -38,7 +41,7 @@ class PROGRAM {
             else {
                 throw new Error("invalid inputs");
             }
-            s.parse(tokenizer);
+            s.parse();
             this._elements.push(s);
         }
     }

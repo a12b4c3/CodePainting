@@ -2,43 +2,36 @@
  Img class
  **/
 import Tokenizer from "../libs/tokenizer.js";
+import IPARAMETER from "./IPARAMETER.js";
 
-class IMG extends Node {
-
-    constructor() {
-        super();
-        this.list = [];
-    }
+class IMG {
+    _imgParameter;
 
     /**
      * Override function
      * parse
      */
-    parse(tokenizer){
-        tokenizer.getAndCheckNext("(");
+    parse(){
+        console.log("I am parsing img")
+        const tokenizer = Tokenizer.getTokenizer();
+        tokenizer.checkToken("(");
 
-        while(!tokenizer.checkNext(")")){
-            let s = null;
-            let tmp = tokenizer.getNext();
-            if(tmp === "x"){ s = new IPARAMETER(tmp); }
-            else if(tmp === "y"){ s = new IPARAMETER(tmp); }
-            else if(tmp === "scale"){s = new IPARAMETER(tmp);}
-            else if(tmp === "rotation"){s = new IPARAMETER(tmp);}
-            else if(tmp === "name"){s = new IPARAMETER(tmp);}
-            else {
-                throw new Error("invalid input");
-            }
-            s.parse(tokenizer);
-            this.list.push(s);
+        while(!tokenizer.checkToken(")")){
+            this._imgParameter = new IPARAMETER();
+            this._imgParameter.parse();
         }
+        tokenizer.getNext();
+
     }
 
-    /**
+
+/**
      * Override function
      * evaluate
      */
     evaluate() {
+
     }
 }
 
-export default Tokenizer
+export default IMG;

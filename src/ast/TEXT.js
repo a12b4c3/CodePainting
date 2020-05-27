@@ -1,36 +1,28 @@
 /**
  Text class
  **/
-import tokenizer from "../libs/tokenizer";
+import Tokenizer from "../libs/tokenizer.js";
+import TPARAMETER from "./TPARAMETER.js";
 
-class TEXT extends Node {
 
-    constructor() {
-        super();
-        this.list = [];
-    }
+class TEXT {
+    _textParameter;
+
 
     /**
      * Override function
      * parse
      */
-    parse(tokenizer){
-        tokenizer.getAndCheckNext("(");
+    parse(){
+        console.log("I am parsing text")
+        const tokenizer = Tokenizer.getTokenizer();
+        tokenizer.checkToken("(");
 
-        while(!tokenizer.checkNext(")")){
-            let s = null;
-            let tmp = tokenizer.getNext();
-            if(tmp === "font"){ s = new TPARAMETER(tmp); }
-            else if(tmp === "fontsize"){ s = new TPARAMETER(tmp); }
-            else if(tmp === "fontcolor"){s = new TPARAMETER(tmp);}
-            else if(tmp === "backgroundcolor"){s = new TPARAMETER(tmp);}
-            else if(tmp === "rotation"){s = new TPARAMETER(tmp);}
-            else {
-                throw new Error("invalid input");
-            }
-            s.parse(tokenizer);
-            this.list.push(s);
+        while(!tokenizer.checkToken(")")){
+            this._textParameter = new TPARAMETER();
+            this._textParameter.parse();
         }
+        tokenizer.getNext();
     }
 
     /**
@@ -40,3 +32,5 @@ class TEXT extends Node {
     evaluate() {
     }
 }
+
+export default TEXT;

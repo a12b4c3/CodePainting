@@ -50,6 +50,15 @@ class IPARAMETER {
      * evaluate
      */
     evaluate() {
+        let xLocal = this._x;
+        let yLocal = this._y;
+        let canvas = document.getElementById('canvas').getContext('2d');
+        let img = new Image();
+        canvas.rotate(this._rotation * Math.PI / 180);
+        img.onload = function() {
+            canvas.drawImage(img, xLocal, yLocal, 100, 100); // scale 1: 100?
+        };
+        img.src = "images/" + this._name + ".svg";
     }
 }
 

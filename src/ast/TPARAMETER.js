@@ -8,12 +8,10 @@ import {ThrowInvalidTextParameterError} from "../libs/ErrorMsgWriter.js";
 class TPARAMETER {
     _font = "calibri";      // font-name
     _fontsize = 12;         // int, pixel
-    _fontcolor = "black"    // string, html color
-    _backgroundcolor = ""   // string, html color
-    _rotation = 0           // int, degree
+    _fontcolor = "black";    // string, html color
+    _backgroundcolor = "";   // string, html color
+    _rotation = 0;           // int, degree
     _comment;
-
-
 
     /**
      * Override function
@@ -43,7 +41,7 @@ class TPARAMETER {
             } else if (tok === "comment") {
                 tokenizer.getAndCheckNext("=");
                 this._comment = tokenizer.getNext();
-            }else {
+            } else {
                 ThrowInvalidTextParameterError(tokenizer.getNext());
             }
         }
@@ -53,7 +51,11 @@ class TPARAMETER {
      * Override function
      * evaluate
      */
-    evaluate() {
+    evaluate() { // TODO: need to implement
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.font = this._font + this._fontsize.toString(10);
+        ctx.fillText(this._comment, 0, 0);
     }
 }
 

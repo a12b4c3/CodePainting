@@ -5,7 +5,7 @@ class DynamicCanvas {
     _canvasHeight;
     constructor() {
         if (!DynamicCanvas.instance) {
-            this._canvasWidth = parseInt(document.getElementById('canvas').getAttribute('width'))
+            this._canvasWidth = parseInt(document.getElementById('canvas').getAttribute('width'));
             this._canvasHeight = parseInt(document.getElementById('canvas').getAttribute('height'));
             this._canvas = document.createElement('canvas');
             this._canvas.width = this._canvasWidth;

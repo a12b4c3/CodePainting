@@ -17,7 +17,7 @@ class ART {
      * parse
      */
     parse(){
-        console.log("I am parsing art")
+        console.log("I am parsing art");
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.checkToken("(");
 

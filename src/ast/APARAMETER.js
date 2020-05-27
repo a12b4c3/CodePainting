@@ -16,7 +16,7 @@ import Tokenizer from "../libs/tokenizer.js";
 import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
 
 class APARAMETER {
-    _shapename = ""             // rectangle or circle
+    _shapename = "";        // rectangle or circle
     _linecolor = "black";   // string (html named colors)
     _linewidth = 3;         // int (pixels)
     _backgroundcolor = 'undef';  // string (html named colors)
@@ -75,8 +75,13 @@ class APARAMETER {
      * Override function
      * evaluate
      */
-    evaluate() {
-
+    evaluate() { // TODO: need to implement
+        // check supportive shapes
+        let canvas = document.getElementById('canvas');
+        if (canvas.getContext) {
+            let ctx = canvas.getContext('2d');
+            ctx.fillRect(this._x, this._y, this._w, this._h);
+        }
     }
 }
 

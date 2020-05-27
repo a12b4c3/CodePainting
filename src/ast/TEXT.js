@@ -6,15 +6,15 @@ import TPARAMETER from "./TPARAMETER.js";
 
 
 class TEXT {
-    _textParameter;
-
+    _textParameter; // TPARAMETER
+    _operations = []; // OPERATION[]
 
     /**
      * Override function
      * parse
      */
     parse(){
-        console.log("I am parsing text")
+        console.log("I am parsing text");
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.checkToken("(");
 
@@ -30,6 +30,7 @@ class TEXT {
      * evaluate
      */
     evaluate() {
+        this._textParameter.evaluate();
     }
 }
 

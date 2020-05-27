@@ -3,6 +3,7 @@ class DynamicCanvas {
     _context;
     _canvasWidth;
     _canvasHeight;
+
     constructor() {
         if (!DynamicCanvas.instance) {
             this._canvasWidth = parseInt(document.getElementById('canvas').getAttribute('width'))
@@ -16,7 +17,17 @@ class DynamicCanvas {
         return DynamicCanvas.instance;
     }
 
+    getDCanvas() {
+        if (!DynamicCanvas.instance) {
+            DynamicCanvas.instance = new DynamicCanvas();
+        }
+        return DynamicCanvas.instance;
+    }
+
     getDContext() {
+        if (!DynamicCanvas.instance) {
+            DynamicCanvas.instance = new DynamicCanvas();
+        }
         return DynamicCanvas.instance._context;
     }
 

@@ -44,6 +44,10 @@ class PROGRAM {
      * evaluate
      */
     evaluate() {
+        for(let i = 0; i < this._elements.length; i++) {
+            let element = this._elements[i];
+            element.evaluate();
+        }
     }
 }
 

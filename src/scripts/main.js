@@ -37,6 +37,7 @@ function main() {
         console.log(Tokenizer.getTokenizer().tokens);
         let p = new PROGRAM();
         p.parse();
+        p.evaluate();
     } else {
         alert('No input code, type something!');
     }

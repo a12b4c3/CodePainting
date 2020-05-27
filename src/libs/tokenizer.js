@@ -37,10 +37,10 @@ class Tokenizer {
             tokenizedProgram = TokenizerUtils.markAllLiteral(tokenizedProgram, s);
             console.log(tokenizedProgram);
         }
+        //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
         tokenizedProgram = tokenizedProgram.replace(/ /g, "");
         tokenizedProgram = tokenizedProgram.replace(/\\/g, "");
-        //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
-
+        tokenizedProgram = tokenizedProgram.replace(/@{1,}/g, "@");
         // tokenizedProgram = TokenizerUtils.replaceAll(tokenizedProgram, "__","_");
         tokenizedProgram = tokenizedProgram.replace(/_{1,}/g, "_");
         console.log(tokenizedProgram);

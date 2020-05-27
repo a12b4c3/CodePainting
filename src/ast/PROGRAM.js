@@ -43,10 +43,10 @@ class PROGRAM {
      * Override function
      * evaluate
      */
-    evaluate() {
+    evaluate(mainCanvas) {
         for(let i = 0; i < this._elements.length; i++) {
             let element = this._elements[i];
-            element.evaluate();
+            element.evaluate(mainCanvas);
         }
     }
 }

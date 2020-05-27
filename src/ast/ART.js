@@ -6,6 +6,7 @@ import APARAMETER from "./APARAMETER.js";
 import REPEATHORIZONTALLY from "./OPERATORS/REPEATHORIZONTALLY.js";
 import REPEATVERTICALLY from "./OPERATORS/REPEATVERTICALLY.js";
 import {ThrowInvalidOperationParameterError} from "../libs/ErrorMsgWriter.js";
+import DynamicCanvas from "../libs/DynamicCanvas.js";
 
 class ART {
     _artParameter; // APARAMETER
@@ -45,7 +46,13 @@ class ART {
      * Override function
      * evaluate
      */
-    evaluate() {
+    evaluate(mainCanvas) {
+        const dcanvas = new DynamicCanvas();
+        this._artParameter.evaluate();
+        for(let i = 0; i < this._operations.length; i++) {
+            this._operations[i].evaluate();
+        }
+        dcanvas.mergeToCanvas(mainCanvas);
     }
 }
 

@@ -1,5 +1,5 @@
 function _ThrowInvalidParameterError(element, invalidParam) {
-    throw Error("Invalid " + element + "parameter -> " + invalidParam);
+    throw Error("Invalid " + element + " parameter -> " + invalidParam);
 }
 
 export function ThrowInvalidArtParameterError(invalidParam) {
@@ -12,4 +12,8 @@ export function ThrowInvalidImgParameterError(invalidParam) {
 
 export function ThrowInvalidTextParameterError(invalidParam) {
     _ThrowInvalidParameterError("Text", invalidParam);
+}
+
+export function ThrowInvalidOperationParameterError(invalidParam) {
+    _ThrowInvalidParameterError("Operator", invalidParam);
 }

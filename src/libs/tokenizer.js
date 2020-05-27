@@ -29,19 +29,18 @@ class Tokenizer {
         //0. Pick some RESERVEDWORD (string which never occurs in your input) : we'll use _
         //1. Read the whole program into a single string; kill the newlines
         // keeping newlines.
-
-            // let tokenizedProgram = this.program.replace("\n", "");
-        let tokenizedProgram = TokenizerUtils.replaceAll(this.program, "\n", "");
+        // let tokenizedProgram = this.program;
+        let tokenizedProgram = TokenizerUtils.replaceAll(this.program, "\n", "@");
         console.log(tokenizedProgram);
         //2. Replace all constant literals with “RESERVEDWORD”<the literal>“RESERVEDWORD”
         for(let s of this.literals) {
             tokenizedProgram = TokenizerUtils.markAllLiteral(tokenizedProgram, s);
             console.log(tokenizedProgram);
         }
+        //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
         tokenizedProgram = tokenizedProgram.replace(/ /g, "");
         tokenizedProgram = tokenizedProgram.replace(/\\/g, "");
-        //3. Replace all “RESERVEDWORDRESERVEDWORD” with just “RESERVEDWORD”
-
+        tokenizedProgram = tokenizedProgram.replace(/@{1,}/g, "@");
         // tokenizedProgram = TokenizerUtils.replaceAll(tokenizedProgram, "__","_");
         tokenizedProgram = tokenizedProgram.replace(/_{1,}/g, "_");
         console.log(tokenizedProgram);
@@ -55,6 +54,8 @@ class Tokenizer {
         for (let i = 0; i < this.tokens.length; i++) {
             this.tokens[i] = this.tokens[i].trim();
         }
+        //6. add a line terminator for the last line
+        this.tokens.push("@");
         console.log(this.tokens);
     }
 

@@ -1,12 +1,9 @@
 import Tokenizer from "../../libs/tokenizer.js";
 import {ThrowInvalidOperationParameterError} from "../../libs/ErrorMsgWriter.js";
 
-class REPEATHORIZONTALLY{
+class REPEATVERTICALLY {
     _spacing = 10;
-    _repeat = 5;
-
-    constructor() {
-    }
+    _repeat =5;
 
     parse() {
         const tokenizer = Tokenizer.getTokenizer();
@@ -33,4 +30,4 @@ class REPEATHORIZONTALLY{
 
 }
 
-export default REPEATHORIZONTALLY;
+export default REPEATVERTICALLY;

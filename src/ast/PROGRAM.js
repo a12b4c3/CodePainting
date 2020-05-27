@@ -6,7 +6,6 @@ import Tokenizer from "../libs/tokenizer.js";
 import ART from "../ast/ART.js";
 import IMG from "../ast/IMG.js";
 import TEXT from "../ast/TEXT.js";
-import OPERATION from "./OPERATION.js";
 
 class PROGRAM {
     _elements;
@@ -23,26 +22,20 @@ class PROGRAM {
         const tokenizer = Tokenizer.getTokenizer();
         while(tokenizer.moreTokens()){
             let element = tokenizer.getNext();
-            console.log(element);
             let s = null;
             if(element === "art"){
                 s = new ART();
-            }
-            else if(element === "img"){
+            } else if(element === "img"){
                 s = new IMG();
-            }
-            else if (element === "text"){
+            } else if (element === "text"){
                 s = new TEXT();
-            }
-            else if (element === "."){
-                let op = tokenizer.getNext();
-                s = new OPERATION(op);
-            }
-            else {
+            } else {
                 throw new Error("invalid inputs");
             }
-            s.parse();
+            s.parse(tokenizer);
             this._elements.push(s);
+            // end of one element and its operations
+            tokenizer.getAndCheckNext("@");
         }
     }
 
@@ -50,7 +43,11 @@ class PROGRAM {
      * Override function
      * evaluate
      */
-    evaluate() {
+    evaluate(mainCanvas) {
+        for(let i = 0; i < this._elements.length; i++) {
+            let element = this._elements[i];
+            element.evaluate(mainCanvas);
+        }
     }
 }
 

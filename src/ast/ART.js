@@ -41,7 +41,7 @@ class ART {
             }
             this._operations.push(o);
         }
-        tokenizer.getNext();
+        // tokenizer.getNext();
     }
 
     /**

@@ -4,8 +4,8 @@ import PROGRAM from "../ast/PROGRAM.js";
 
 // constant definitions
 const mainCanvas = document.getElementById('canvas');
-const canvas_width = parseInt(mainCanvas.getAttribute('width'));
-const canvas_height = parseInt(mainCanvas.getAttribute('height'));
+export const canvas_width = parseInt(mainCanvas.getAttribute('width'));
+export const canvas_height = parseInt(mainCanvas.getAttribute('height'));
 const mainContext = mainCanvas.getContext('2d');
 const PAINT_CODE = document.getElementById('paintcode');
 const SUBMIT_BUTTON = document.getElementById('submitbutton');
@@ -16,7 +16,7 @@ const dContext = dynamicCanvas.getDContext();
 SUBMIT_BUTTON.addEventListener("click", main);
 
 // list of literals
-const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " "];
+const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " ", "background"];
 const artParamLiterals = [];
 const textParamLiterals = [];
 const imgParamLiterals = [];

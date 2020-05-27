@@ -1,7 +1,7 @@
 /**
  Text class
  **/
-import tokenizer from "../libs/tokenizer";
+import Tokenizer from "../libs/tokenizer.js";
 
 class TEXT extends Node {
 
@@ -40,3 +40,5 @@ class TEXT extends Node {
     evaluate() {
     }
 }
+
+export default TEXT;

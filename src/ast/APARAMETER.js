@@ -65,9 +65,10 @@ class APARAMETER {
                 tokenizer.getAndCheckNext("=");
                 this._rotation = tokenizer.getNext();
             } else {
-                ThrowInvalidArtParameterError(tokenizer.getNext());
+                ThrowInvalidArtParameterError(tok);
             }
         }
+        tokenizer.getNext();
     }
 
     /**

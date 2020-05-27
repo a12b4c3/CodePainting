@@ -5,6 +5,7 @@
 import Tokenizer from "../libs/tokenizer.js";
 import ART from "../ast/ART.js";
 import IMG from "../ast/IMG.js";
+import TEXT from "../ast/TEXT.js";
 
 class PROGRAM {
     _elements;
@@ -24,22 +25,17 @@ class PROGRAM {
             let s = null;
             if(element === "art"){
                 s = new ART();
-            }
-            else if(element === "img"){
+            } else if(element === "img"){
                 s = new IMG();
-            }
-            else if (element === "text"){
+            } else if (element === "text"){
                 s = new TEXT();
-            }
-            else if (element === "."){
-                let op = tokenizer.getNext();
-                s = new OPERATION(op);
-            }
-            else {
+            } else {
                 throw new Error("invalid inputs");
             }
             s.parse(tokenizer);
             this._elements.push(s);
+            // end of one element and its operations
+            tokenizer.getAndCheckNext("@");
         }
     }
 

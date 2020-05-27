@@ -10,7 +10,6 @@ import BACKGROUND from "../ast/BACKGROUND.js";
 
 class PROGRAM {
     _elements;
-    _backgroundnode;
 
     constructor() {
         this._elements = [];
@@ -38,7 +37,7 @@ class PROGRAM {
                 throw new Error("invalid inputs");
             }
             s.parse();
-            
+
             if (s.constructor.name !== "BACKGROUND") {
                 this._elements.push(s);
             } else {

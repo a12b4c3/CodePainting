@@ -28,6 +28,7 @@ document.getElementById('paintcode').innerText = "art(shapename='hello' x=23 y=2
 
 // function definitions
 function main() {
+    mainContext.clearRect(0,0,canvas_width,canvas_height);
     let input_code = PAINT_CODE.value;
     input_code = input_code.toLowerCase();
     console.log("the input code is: " + input_code);
@@ -38,6 +39,7 @@ function main() {
         let p = new PROGRAM();
         p.parse();
         p.evaluate(mainCanvas);
+        alert("run!");
     } else {
         alert('No input code, type something!');
     }

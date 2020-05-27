@@ -22,7 +22,7 @@ class BACKGROUND {
         if (this._color === undefined) {
             mainContext.clearRect(0,0,canvas_width,canvas_height);
         } else {
-            mainContext.fillStyle = this._color
+            mainContext.fillStyle = this._color;
             mainContext.fillRect(0,0,canvas_width,canvas_height);
         }
     }

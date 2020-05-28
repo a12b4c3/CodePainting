@@ -17,7 +17,6 @@ class ART {
      * parse
      */
     parse(){
-        console.log("I am parsing art");
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.checkToken("(");
 
@@ -50,12 +49,10 @@ class ART {
      */
     evaluate(mainCanvas) {
         const dcanvas = DynamicCanvas.getDCanvas();
-        const dcontext = DynamicCanvas.getDContext();
+        const dcontext = DynamicCanvas.getDContext()
         this._artParameter.evaluate(mainCanvas);
         for(let i = 0; i < this._operations.length; i++) {
             this._operations[i].evaluate();
-            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
-
         }
         DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
     }

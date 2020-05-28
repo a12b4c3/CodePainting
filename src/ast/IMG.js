@@ -55,13 +55,15 @@ class IMG {
     evaluate(mainCanvas) {
         const dcanvas = DynamicCanvas.getDCanvas();
         const dcontext = DynamicCanvas.getDContext();
-        this._imgParameter.evaluate(mainCanvas);
-        for(let i = 0; i < this._operations.length; i++) {
-            this._operations[i].evaluate();
+        let draw = (async ()=> {await this._imgParameter.evaluate(mainCanvas);})
+        draw().then(()=> {
+            for(let i = 0; i < this._operations.length; i++) {
+                this._operations[i].evaluate(mainCanvas);
+            }
             DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
-
-        }
-        DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
+        }).catch(() => {
+            console.log("couldn't load the image");
+        });
     }
 }
 

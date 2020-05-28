@@ -1,10 +1,9 @@
 /**
-IParameter class
+ IParameter class
  **/
 
-import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
-import Tokenizer from "../libs/tokenizer.js";
 import {ThrowInvalidImgParameterError} from "../libs/ErrorMsgWriter.js";
+import Tokenizer from "../libs/tokenizer.js";
 import DynamicCanvas from "../libs/DynamicCanvas.js";
 
 class IPARAMETER {
@@ -19,7 +18,7 @@ class IPARAMETER {
      * Override function
      * parse
      */
-    parse(){
+    parse() {
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("(");
 
@@ -51,23 +50,31 @@ class IPARAMETER {
      * Override function
      * evaluate
      */
-    evaluate(mainCanvas) {
-        // const dcontext = DynamicCanvas.getDContext();
-        // DynamicCanvas.clearDContext();
-        let dcontext = document.getElementById('canvas').getContext('2d');
-        let xLocal = 200;
-        let yLocal = this._y;
+    async evaluate(mainCanvas) {
+        const dcontext = DynamicCanvas.getDContext();
+        DynamicCanvas.clearDContext();
+        // mainCanvas.getContext('2d').fillStyle = "black";
+        // let img = new Image();
+        // img.src = "../images/" + this._name + ".svg";
+        // dcontext.drawImage(img, this._x, this._y);
+        let loadedImg = await this._loadImg();
+        mainCanvas.getContext('2d').drawImage(loadedImg, 300, 300);
+        return loadedImg();
+    }
 
-        let img = new Image();
-        dcontext.rotate(this._rotation);
-        img.src = "images/" + this._name + ".svg";
-        img.onload = function() {
-            let next_x = xLocal;
-            for (let i = 0; i < 5; i++) {
-                dcontext.drawImage(img, next_x, yLocal, 100, 100); // scale 1: 100?
-                next_x = next_x + 100;
-            }
-        };
+    async _loadImg() {
+    let drawn = await (async () => {
+        return new Promise((resolve, reject) => {
+            let img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = "images/" + this._name + ".svg";
+            // dcontext.drawImage(img, this._x, this._y);
+            // mainCanvas.getContext('2d').drawImage(img, 300, 300);
+            // mainCanvas.getContext('2d').fillRect(100,100,10,10);
+        });
+    });
+    return drawn();
     }
 }
 

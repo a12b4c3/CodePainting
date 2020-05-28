@@ -22,11 +22,9 @@ class TEXT {
         const tokenizer = Tokenizer.getTokenizer();
         tokenizer.checkToken("(");
 
-        while(!tokenizer.checkToken(")")){
-            this._textParameter = new TPARAMETER();
-            this._textParameter.parse();
-        }
-        tokenizer.getNext();
+
+        this._textParameter = new TPARAMETER();
+        this._textParameter.parse();
 
         while(!tokenizer.checkToken("@") && tokenizer.moreTokens()) {
             tokenizer.getAndCheckNext(".");
@@ -55,8 +53,6 @@ class TEXT {
         this._textParameter.evaluate(mainCanvas);
         for(let i = 0; i < this._operations.length; i++) {
             this._operations[i].evaluate();
-            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
-
         }
         DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
     }

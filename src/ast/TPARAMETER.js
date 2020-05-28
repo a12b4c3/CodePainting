@@ -13,6 +13,8 @@ class TPARAMETER {
     _backgroundcolor = "";   // string, html color
     _rotation = 0;           // int, degree
     _comment;
+    _x = 0;
+    _y = 0;
 
     /**
      * Override function
@@ -43,10 +45,18 @@ class TPARAMETER {
             } else if (tok === "comment") {
                 tokenizer.getAndCheckNext("=");
                 this._comment = tokenizer.getNext();
-            } else {
+            } else if (tok === "x") {
+                tokenizer.getAndCheckNext("=");
+                this._x = tokenizer.getNext();
+            } else if (tok === "y") {
+                tokenizer.getAndCheckNext("=");
+                this._y = tokenizer.getNext();
+            }
+            else {
                 ThrowInvalidTextParameterError(tokenizer.getNext());
             }
         }
+        tokenizer.getNext();
     }
 
     /**
@@ -60,7 +70,7 @@ class TPARAMETER {
         dcontext.fillStyle = this._fontcolor;
         dcontext.rotate(this._rotation);
         // TODO: set background color
-        dcontext.fillText(this._comment, 150, 150);
+        dcontext.fillText(this._comment, this._x, this._y);
     }
 }
 

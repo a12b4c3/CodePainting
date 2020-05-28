@@ -101,11 +101,11 @@ function testcode() {
 }
 
 
-mainContext.translate(100,100);
-mainContext.rotate(Math.PI/4);
-mainContext.translate(0,0);
-
-mainContext.setTransform(1,0,0,1,0,0);
+// mainContext.translate(100,100);
+// mainContext.rotate(Math.PI/4);
+// mainContext.translate(0,0);
+//
+// mainContext.setTransform(1,0,0,1,0,0);
 
 
 function drawImageToCanvas(image, x, y, scale, rotation, ccanvas) {

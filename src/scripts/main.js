@@ -23,8 +23,8 @@ const imgParamLiterals = [];
 
 // TODO remove this after testing is done
 // document.getElementById('paintcode').innerText = "art(shapename=hello x=10 y=10 w=100 h=100)\n img(name='star' scale=1).repeathorizontally(spacing=10 repeat=10)\n text(comment='hello how are you')";
-document.getElementById('paintcode').innerText = "img(name=star x=10 y=10 scale=1 rotation=30).repeathorizontally()";
-
+document.getElementById('paintcode').innerText = "img(name=star x=200 y=90 scale=1 rotation=30).repeatvertically(spacing=50 repeat=5)";
+// "text(comment=enjoyYourLife font=Georgia fontsize=25 fontcolor=brown rotation=10).repeatvertically(spacing=50 repeat=6)"
 
 // function definitions
 function main() {

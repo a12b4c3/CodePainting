@@ -53,8 +53,15 @@ class IMG {
      */
 // img(name=star/heart x=10 y=10 scale=1)
     evaluate(mainCanvas) {
-        const dcanvas = new DynamicCanvas();
-        this._imgParameter.evaluate(this._operations);
+        const dcanvas = DynamicCanvas.getDCanvas();
+        const dcontext = DynamicCanvas.getDContext();
+        this._imgParameter.evaluate(mainCanvas);
+        for(let i = 0; i < this._operations.length; i++) {
+            this._operations[i].evaluate();
+            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
+
+        }
+        DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
     }
 }
 

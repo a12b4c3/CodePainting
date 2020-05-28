@@ -4,6 +4,7 @@
 import Tokenizer from "../libs/tokenizer.js";
 import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
 import {ThrowInvalidTextParameterError} from "../libs/ErrorMsgWriter.js";
+import DynamicCanvas from "../libs/DynamicCanvas.js";
 
 class TPARAMETER {
     _font = "calibri";      // font-name
@@ -52,11 +53,14 @@ class TPARAMETER {
      * Override function
      * evaluate
      */
-    evaluate() { // TODO: need to implement
-        let canvas = document.getElementById("canvas");
-        let ctx = canvas.getContext("2d");
-        ctx.font = this._font + this._fontsize.toString(10);
-        ctx.fillText(this._comment, 0, 0);
+    evaluate(mainCanvas) {
+        const dcontext = DynamicCanvas.getDContext();
+        DynamicCanvas.clearDContext();
+        dcontext.font = this._fontsize.toString(10) + "px " + this._font;
+        dcontext.fillStyle = this._fontcolor;
+        dcontext.rotate(this._rotation);
+        // TODO: set background color
+        dcontext.fillText(this._comment, 150, 150);
     }
 }
 

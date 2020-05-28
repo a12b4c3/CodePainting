@@ -18,7 +18,7 @@ import DynamicCanvas from "../libs/DynamicCanvas.js";
 import {DegToRad} from "../libs/MathUtils.js";
 
 class APARAMETER {
-    _shapename = "undef"    // rectangle or circle
+    _shapename = "undef";    // rectangle or circle
     _linecolor = "black";   // string (html named colors)
     _linewidth = 3;         // int (pixels)
     _backgroundcolor = 'undef';  // string (html named colors)

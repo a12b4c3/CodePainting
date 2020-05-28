@@ -1,5 +1,6 @@
 import Tokenizer from "../../libs/tokenizer.js";
 import {ThrowInvalidOperationParameterError} from "../../libs/ErrorMsgWriter.js";
+import DynamicCanvas from "../../libs/DynamicCanvas.js";
 
 class REPEATHORIZONTALLY{
     _spacing = 10;
@@ -27,8 +28,14 @@ class REPEATHORIZONTALLY{
         tokenizer.getNext();
     }
 
-    evaluate() {
-
+    evaluate(mainCanvas) {
+        const dcontext = DynamicCanvas.getDContext();
+        const ogDynamicCanvas = DynamicCanvas.cloneCanvas(dcontext.canvas);
+        let next_x = Number(this._spacing);
+        for (let i = 0; i < this._repeat; i++) {
+            dcontext.drawImage(ogDynamicCanvas, next_x, 0, 700, 700);
+            next_x = next_x + Number(this._spacing);
+        }
     }
 
 }

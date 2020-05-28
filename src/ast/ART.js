@@ -51,11 +51,11 @@ class ART {
     evaluate(mainCanvas) {
         const dcanvas = DynamicCanvas.getDCanvas();
         const dcontext = DynamicCanvas.getDContext()
-        dcontext.fillStyle = 'red';
-        dcontext.fillRect(100,100,35,35);
-        this._artParameter.evaluate();
+        this._artParameter.evaluate(mainCanvas);
         for(let i = 0; i < this._operations.length; i++) {
             this._operations[i].evaluate();
+            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
+
         }
         DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
     }

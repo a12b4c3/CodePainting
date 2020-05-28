@@ -1,5 +1,6 @@
 import Tokenizer from "../../libs/tokenizer.js";
 import {ThrowInvalidOperationParameterError} from "../../libs/ErrorMsgWriter.js";
+import DynamicCanvas from "../../libs/DynamicCanvas.js";
 
 class REPEATVERTICALLY {
     _spacing = 10;
@@ -24,7 +25,14 @@ class REPEATVERTICALLY {
         tokenizer.getNext();
     }
 
-    evaluate() {
+    evaluate(mainCanvas) {
+        const dcontext = DynamicCanvas.getDContext();
+        const ogDynamicCanvas = DynamicCanvas.cloneCanvas(dcontext.canvas);
+        let next_y = Number(this._spacing);
+        for (let i = 0; i < this._repeat; i++) {
+            dcontext.drawImage(ogDynamicCanvas, 0, next_y, 700, 700);
+            next_y = next_y + Number(this._spacing);
+        }
 
     }
 

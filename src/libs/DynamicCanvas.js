@@ -43,6 +43,17 @@ class DynamicCanvas {
         dstContext.drawImage(this._canvas, x, y);
     }
 
+    cloneCanvas(oldCanvas) {
+        let newCanvas = document.createElement('canvas');
+        let newContext = newCanvas.getContext('2d');
+
+        newCanvas.width = oldCanvas.width;
+        newCanvas.height = oldCanvas.height;
+
+        newContext.drawImage(oldCanvas, 0, 0);
+        return newCanvas;
+    }
+
 
 }
 

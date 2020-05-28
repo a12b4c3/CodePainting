@@ -58,8 +58,12 @@ class IPARAMETER {
         // img.src = "../images/" + this._name + ".svg";
         // dcontext.drawImage(img, this._x, this._y);
         let loadedImg = await this._loadImg();
-        mainCanvas.getContext('2d').drawImage(loadedImg, 300, 300);
-        return loadedImg();
+        dcontext.drawImage(loadedImg, this._x, this._y, this._scale*100, this._scale*100);
+        if (loadedImg) {
+            return Promise.resolve();
+        } else {
+            return Promise.reject();
+        }
     }
 
     async _loadImg() {
@@ -67,7 +71,7 @@ class IPARAMETER {
         return new Promise((resolve, reject) => {
             let img = new Image();
             img.onload = () => resolve(img);
-            img.onerror = reject;
+            img.onerror = () => reject;
             img.src = "images/" + this._name + ".svg";
             // dcontext.drawImage(img, this._x, this._y);
             // mainCanvas.getContext('2d').drawImage(img, 300, 300);

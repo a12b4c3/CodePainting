@@ -4,8 +4,8 @@ import PROGRAM from "../ast/PROGRAM.js";
 
 // constant definitions
 const mainCanvas = document.getElementById('canvas');
-const canvas_width = parseInt(mainCanvas.getAttribute('width'));
-const canvas_height = parseInt(mainCanvas.getAttribute('height'));
+export const canvas_width = parseInt(mainCanvas.getAttribute('width'));
+export const canvas_height = parseInt(mainCanvas.getAttribute('height'));
 const mainContext = mainCanvas.getContext('2d');
 const PAINT_CODE = document.getElementById('paintcode');
 const SUBMIT_BUTTON = document.getElementById('submitbutton');
@@ -16,7 +16,7 @@ const dContext = dynamicCanvas.getDContext();
 SUBMIT_BUTTON.addEventListener("click", main);
 
 // list of literals
-const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " "];
+const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " ", "background"];
 const artParamLiterals = [];
 const textParamLiterals = [];
 const imgParamLiterals = [];
@@ -28,6 +28,7 @@ document.getElementById('paintcode').innerText = "img(name=star x=10 y=10 scale=
 
 // function definitions
 function main() {
+    mainContext.clearRect(0,0,canvas_width,canvas_height);
     let input_code = PAINT_CODE.value;
     input_code = input_code.toLowerCase();
     console.log("the input code is: " + input_code);
@@ -38,6 +39,8 @@ function main() {
         let p = new PROGRAM();
         p.parse();
         p.evaluate(mainCanvas);
+        mainContext.stroke();
+        mainContext.fill();
     } else {
         alert('No input code, type something!');
     }
@@ -96,78 +99,6 @@ function testcode() {
     }
     img.src = './images/star.svg'
 }
-
-
-// const canvas1 = document.createElement('canvas');
-// const ctx1 = canvas1.getContext('2d');
-// canvas1.width = parseInt(canvas_width);
-// canvas1.height = parseInt(canvas_height);
-
-
-// clearCanvas(ctx1);
-// ctx1.fillStyle = 'lightsalmon';
-// ctx1.fillRect(0,0,parseInt(canvas_width), parseInt(canvas_width));
-// ctx.drawImage(canvas1, 0, 0);
-
-
-// clearCanvas(ctx1);
-// ctx1.fillStyle = 'white';
-// ctx1.fillRect(95,95, 400, 370)
-// ctx.drawImage(canvas1, 0, 0);
-//
-// clearCanvas(ctx1);
-// ctx1.fillStyle = 'red';
-// ctx1.fillRect(95, 95, 400, 34);
-// ctx1.fillRect(95, 154, 400, 34);
-// ctx1.fillRect(95, 219, 400, 34);
-// ctx1.fillRect(95, 279, 400, 34);
-// ctx1.fillRect(95, 339, 400, 34);
-// ctx1.fillRect(95, 399, 400, 34);
-// ctx.drawImage(canvas1, 0, 0);
-//
-//
-//
-// clearCanvas(ctx1);
-// ctx1.fillStyle = 'blue';
-// ctx1.fillRect(95, 95, 240, 280);
-// ctx.drawImage(canvas1, 0, 0);
-//
-//
-//
-// let img = new Image();
-// img.onload = function() {
-//     clearCanvas(ctx1);
-//     drawImageToCanvas(img, 100,100,0.05,0,ctx1);
-//     drawImageToCanvas(img, 140,100,0.05,0,ctx1);
-//     drawImageToCanvas(img, 180,100,0.05,0,ctx1);
-//     drawImageToCanvas(img, 220,100,0.05,0,ctx1);
-//     drawImageToCanvas(img, 260,100,0.05,0,ctx1);
-//     drawImageToCanvas(img, 300,100,0.05,0,ctx1);
-//
-//     ctx.drawImage(canvas1, 0,0);
-//     ctx.drawImage(canvas1, 0, 80);
-//     ctx.drawImage(canvas1, 0, 160);
-//     ctx.drawImage(canvas1, 0, 240);
-// }
-// img.src = './images/star.svg'
-//
-// let img1 = new Image();
-// img1.onload = function() {
-//     clearCanvas(ctx1);
-//     drawImageToCanvas(img1, 120, 140, 0.05, 0, ctx1);
-//     drawImageToCanvas(img1, 160, 140, 0.05, 0, ctx1);
-//     drawImageToCanvas(img1, 200, 140, 0.05, 0, ctx1);
-//     drawImageToCanvas(img1, 240, 140, 0.05, 0, ctx1);
-//     drawImageToCanvas(img1, 280, 140, 0.05, 0, ctx1);
-//
-//     ctx.drawImage(canvas1, 0, 0);
-//     ctx.drawImage(canvas1, 0, 80);
-//     ctx.drawImage(canvas1, 0, 160);
-//
-// }
-// img1.src = './images/star.svg';
-
-
 
 
 mainContext.translate(100,100);

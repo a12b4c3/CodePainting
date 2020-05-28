@@ -41,7 +41,7 @@ class ART {
             }
             this._operations.push(o);
         }
-        tokenizer.getNext();
+        // tokenizer.getNext();
     }
 
     /**
@@ -49,12 +49,15 @@ class ART {
      * evaluate
      */
     evaluate(mainCanvas) {
-        const dcanvas = new DynamicCanvas();
-        this._artParameter.evaluate();
+        const dcanvas = DynamicCanvas.getDCanvas();
+        const dcontext = DynamicCanvas.getDContext()
+        this._artParameter.evaluate(mainCanvas);
         for(let i = 0; i < this._operations.length; i++) {
             this._operations[i].evaluate();
+            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
+
         }
-        dcanvas.mergeToCanvas(mainCanvas);
+        DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
     }
 }
 

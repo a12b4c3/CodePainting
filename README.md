@@ -150,7 +150,7 @@ OPARAMETER ::- <<depends on the operator...>>
 #### Art paramters
 * linecolor (default: black)
 * linewidth (default: 3 px)
-* backgroundcolor (default: none)
+* fillcolor (default: none)
 * x (default: 0)
 * y (default: 0)
 * w (default: 100)
@@ -175,5 +175,5 @@ OPARAMETER ::- <<depends on the operator...>>
 * font (default: calibri)
 * fontsize (default: 13point)
 * fontcolor (default: black)
-* backgroundcolor (default: none)
+* fillcolor (default: none)
 * rotation (default: 0deg)

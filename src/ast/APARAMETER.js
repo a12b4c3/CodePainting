@@ -14,9 +14,11 @@
  **/
 import Tokenizer from "../libs/tokenizer.js";
 import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
+import DynamicCanvas from "../libs/DynamicCanvas.js";
+import {DegToRad} from "../libs/MathUtils.js";
 
 class APARAMETER {
-    _shapename = "";        // rectangle or circle
+    _shapename = "undef"    // rectangle or circle
     _linecolor = "black";   // string (html named colors)
     _linewidth = 3;         // int (pixels)
     _backgroundcolor = 'undef';  // string (html named colors)
@@ -24,7 +26,7 @@ class APARAMETER {
     _y = 0;                 // int (y-dim)
     _w = 100;               // int (pixels)
     _h = 100;               // int (pixels)
-    _rotation = 0;          // int (degrees)
+    _rotation = 0;          // int (rad)
 
 
     /**
@@ -46,25 +48,24 @@ class APARAMETER {
             } else if (tok === "linewidth") {
                 tokenizer.getAndCheckNext("=");
                 this._linewidth = tokenizer.getNext();
-            } else if (tok === "backgroundcolour") {
+            } else if (tok === "fillcolor") {
                 tokenizer.getAndCheckNext("=");
                 this._backgroundcolor = tokenizer.getNext();
             } else if (tok === "x") {
                 tokenizer.getAndCheckNext("=");
-                this._x = tokenizer.getNext();
+                this._x = Number(tokenizer.getNext());
             } else if (tok === "y") {
                 tokenizer.getAndCheckNext("=");
-                this._y = tokenizer.getNext();
+                this._y = Number(tokenizer.getNext());
             } else if (tok === "w") {
                 tokenizer.getAndCheckNext("=");
-                this._w = tokenizer.getNext();
+                this._w = Number(tokenizer.getNext());
             } else if (tok === "h") {
                 tokenizer.getAndCheckNext("=");
-                this._h = tokenizer.getNext();
+                this._h = Number(tokenizer.getNext());
             } else if (tok === "rotation") {
                 tokenizer.getAndCheckNext("=");
-                this._rotation = tokenizer.getNext();
-                this._rotation *= Math.PI / 180;
+                this._rotation = DegToRad(tokenizer.getNext());
             } else {
                 ThrowInvalidArtParameterError(tok);
             }
@@ -76,13 +77,28 @@ class APARAMETER {
      * Override function
      * evaluate
      */
-    evaluate() { // TODO: need to implement
-        // check supportive shapes
-        let canvas = document.getElementById('canvas');
-        if (canvas.getContext) {
-            let ctx = canvas.getContext('2d');
-            ctx.fillRect(this._x, this._y, this._w, this._h);
+    evaluate(mainCanvas) {
+        const dcontext = DynamicCanvas.getDContext();
+        DynamicCanvas.clearDContext();
+        dcontext.strokeStyle = this._linecolor;
+        dcontext.lineWidth = this._linewidth;
+        dcontext.fillStyle = this._backgroundcolor;
+
+        if (this._shapename === "circle") {
+            dcontext.beginPath();
+            dcontext.ellipse(this._x, this._y, this._w, this._h, this._rotation, 0, 2 * Math.PI)
+        } else if (this._shapename === "rectangle") {
+            dcontext.beginPath();
+            dcontext.moveTo(this._x, this._y);
+            dcontext.lineTo(this._x + this._w, this._y);
+            dcontext.lineTo(this._x + this._w, this._y + this._h);
+            dcontext.lineTo(this._x, this._y + this._h);
+            dcontext.lineTo(this._x, this._y);
+        } else {
+            ThrowInvalidArtParameterError("Shapename: " + this._shapename);
         }
+        dcontext.stroke();
+        dcontext.fill();
     }
 }
 

@@ -6,6 +6,7 @@ import Tokenizer from "../libs/tokenizer.js";
 import ART from "../ast/ART.js";
 import IMG from "../ast/IMG.js";
 import TEXT from "../ast/TEXT.js";
+import BACKGROUND from "../ast/BACKGROUND.js";
 
 class PROGRAM {
     _elements;
@@ -29,11 +30,19 @@ class PROGRAM {
                 s = new IMG();
             } else if (element === "text"){
                 s = new TEXT();
-            } else {
+            } else if (element === "background") {
+                s = new BACKGROUND();
+            }
+            else {
                 throw new Error("invalid inputs");
             }
             s.parse();
-            this._elements.push(s);
+
+            if (s.constructor.name !== "BACKGROUND") {
+                this._elements.push(s);
+            } else {
+                this._elements.unshift(s);
+            }
             // end of one element and its operations
             tokenizer.getAndCheckNext("@");
         }
@@ -44,6 +53,7 @@ class PROGRAM {
      * evaluate
      */
     evaluate(mainCanvas) {
+
         for(let i = 0; i < this._elements.length; i++) {
             let element = this._elements[i];
             element.evaluate(mainCanvas);

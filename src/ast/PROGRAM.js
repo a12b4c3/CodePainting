@@ -32,7 +32,7 @@ class PROGRAM {
             } else {
                 throw new Error("invalid inputs");
             }
-            s.parse(tokenizer);
+            s.parse();
             this._elements.push(s);
             // end of one element and its operations
             tokenizer.getAndCheckNext("@");

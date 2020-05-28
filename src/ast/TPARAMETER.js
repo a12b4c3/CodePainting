@@ -38,6 +38,7 @@ class TPARAMETER {
             } else if (tok === "rotation") {
                 tokenizer.getAndCheckNext("=");
                 this._rotation = tokenizer.getNext();
+                this._rotation *= Math.PI / 180;
             } else if (tok === "comment") {
                 tokenizer.getAndCheckNext("=");
                 this._comment = tokenizer.getNext();

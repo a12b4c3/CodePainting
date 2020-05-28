@@ -36,6 +36,7 @@ class IPARAMETER {
             } else if (tok === "rotation") {
                 tokenizer.getAndCheckNext("=");
                 this._rotation = tokenizer.getNext();
+                this._rotation *= Math.PI / 180;
             } else if (tok === "scale") {
                 tokenizer.getAndCheckNext("=");
                 this._scale = tokenizer.getNext();
@@ -49,16 +50,21 @@ class IPARAMETER {
      * Override function
      * evaluate
      */
-    evaluate() {
+    evaluate(operations) {
         let xLocal = this._x;
         let yLocal = this._y;
         let canvas = document.getElementById('canvas').getContext('2d');
         let img = new Image();
-        canvas.rotate(this._rotation * Math.PI / 180);
+        canvas.rotate(this._rotation);
         img.onload = function() {
             canvas.drawImage(img, xLocal, yLocal, 100, 100); // scale 1: 100?
         };
         img.src = "images/" + this._name + ".svg";
+        if (operations.length !== 0) {
+            for(let i = 0; i < operations.length; i++) {
+                operations[i].evaluate(); // OPARAMETER evaluate()
+            }
+        }
     }
 }
 

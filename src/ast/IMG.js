@@ -4,6 +4,9 @@
 import Tokenizer from "../libs/tokenizer.js";
 import IPARAMETER from "./IPARAMETER.js";
 import DynamicCanvas from "../libs/DynamicCanvas.js";
+import REPEATHORIZONTALLY from "./OPERATORS/REPEATHORIZONTALLY.js";
+import REPEATVERTICALLY from "./OPERATORS/REPEATVERTICALLY.js";
+import {ThrowInvalidOperationParameterError} from "../libs/ErrorMsgWriter.js";
 
 class IMG {
     _imgParameter; // IPARAMETER
@@ -24,6 +27,23 @@ class IMG {
         }
         tokenizer.getNext();
 
+        while(!tokenizer.checkToken("@") && tokenizer.moreTokens()) {
+            console.log("parsing operator.");
+            tokenizer.getAndCheckNext(".");
+            let tok = tokenizer.getNext();
+            let o;
+            if (tok === "repeathorizontally") {
+                o = new REPEATHORIZONTALLY();
+                o.parse();
+            } else if (tok === "repeatvertically") {
+                o = new REPEATVERTICALLY();
+                o.parse();
+            } else {
+                ThrowInvalidOperationParameterError(tok);
+            }
+            this._operations.push(o);
+        }
+
     }
 
 
@@ -33,12 +53,8 @@ class IMG {
      */
 // img(name=star/heart x=10 y=10 scale=1)
     evaluate(mainCanvas) {
-        // const dcanvas = new DynamicCanvas();
-        this._imgParameter.evaluate();
-        // for(let i = 0; i < this._operations.length; i++) {
-        //     this._operations[i].evaluate();
-        // }
-        // dcanvas.mergeToCanvas(mainCanvas);
+        const dcanvas = new DynamicCanvas();
+        this._imgParameter.evaluate(this._operations);
     }
 }
 

@@ -28,7 +28,7 @@ class REPEATHORIZONTALLY{
     }
 
     evaluate() {
-
+        console.log("repeating horizontally now!");
     }
 
 }

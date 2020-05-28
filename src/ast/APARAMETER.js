@@ -64,6 +64,7 @@ class APARAMETER {
             } else if (tok === "rotation") {
                 tokenizer.getAndCheckNext("=");
                 this._rotation = tokenizer.getNext();
+                this._rotation *= Math.PI / 180;
             } else {
                 ThrowInvalidArtParameterError(tok);
             }

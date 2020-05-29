@@ -58,7 +58,7 @@ class IPARAMETER {
         // img.src = "../images/" + this._name + ".svg";
         // dcontext.drawImage(img, this._x, this._y);
         let loadedImg = await this._loadImg();
-        dcontext.drawImage(loadedImg, this._x, this._y, this._scale*100, this._scale*100);
+        dcontext.drawImage(loadedImg, this._x, this._y, this._scale*10, this._scale*10);
         if (loadedImg) {
             return Promise.resolve();
         } else {

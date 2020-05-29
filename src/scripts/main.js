@@ -16,7 +16,8 @@ const dContext = dynamicCanvas.getDContext();
 SUBMIT_BUTTON.addEventListener("click", main);
 
 // list of literals
-const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " ", "background"];
+let varTable = [];
+const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " ", "background", "def", "draw", "{", "}"];
 const artParamLiterals = [];
 const textParamLiterals = [];
 const imgParamLiterals = [];
@@ -39,13 +40,14 @@ function main() {
         console.log(Tokenizer.getTokenizer().tokens);
         let p = new PROGRAM();
         p.parse();
-        p.evaluate(mainCanvas);
+        p.evaluate(mainCanvas,varTable);
         mainContext.stroke();
         mainContext.fill();
     } else {
         alert('No input code, type something!');
     }
 }
+
 
 function buildLiteralsList() {
     const toBuild = [baseLiterals];

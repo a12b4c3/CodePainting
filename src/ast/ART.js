@@ -8,6 +8,7 @@ import REPEATVERTICALLY from "./OPERATORS/REPEATVERTICALLY.js";
 import {ThrowInvalidOperationParameterError} from "../libs/ErrorMsgWriter.js";
 import DynamicCanvas from "../libs/DynamicCanvas.js";
 
+
 class ART {
     _artParameter; // APARAMETER
     _operations = []; // OPERATION[]
@@ -25,7 +26,7 @@ class ART {
 
         // while "@" is not hit, there are still more operations for
         // this element.
-        while(!tokenizer.checkToken("@") && tokenizer.moreTokens()) {
+        while(!tokenizer.checkToken("@") && tokenizer.moreTokens() && !tokenizer.checkToken("}")) {
             tokenizer.getAndCheckNext(".");
             let tok = tokenizer.getNext();
             let o;
@@ -40,7 +41,6 @@ class ART {
             }
             this._operations.push(o);
         }
-        // tokenizer.getNext();
     }
 
     /**

@@ -3,17 +3,13 @@
  **/
 
 import Tokenizer from "../libs/tokenizer.js";
-import ART from "../ast/ART.js";
-import IMG from "../ast/IMG.js";
-import TEXT from "../ast/TEXT.js";
-import BACKGROUND from "../ast/BACKGROUND.js";
+import DEF from "./DEF.js";
+import DRAW from "./DRAW.js";
 
 class PROGRAM {
-    _elements;
+    def_elements=[];
+    draw_elements=[];
 
-    constructor() {
-        this._elements = [];
-    }
 
     /**
      * Override function
@@ -22,29 +18,24 @@ class PROGRAM {
     parse(){
         const tokenizer = Tokenizer.getTokenizer();
         while(tokenizer.moreTokens()){
-            let element = tokenizer.getNext();
+            let e = tokenizer.getNext();
+            console.log("I am parsing this word " + e);
             let s = null;
-            if(element === "art"){
-                s = new ART();
-            } else if(element === "img"){
-                s = new IMG();
-            } else if (element === "text"){
-                s = new TEXT();
-            } else if (element === "background") {
-                s = new BACKGROUND();
-            }
-            else {
-                throw new Error("invalid inputs");
-            }
-            s.parse();
+            if(e === "def") {
+                s = new DEF();
+                s.parse();
+                this.def_elements.push(s);
 
-            if (s.constructor.name !== "BACKGROUND") {
-                this._elements.push(s);
+            } else if (e === "draw") {
+                s = new DRAW();
+                s.parse();
+                this.draw_elements.push(s);
+            } else if( e === "@") {
+                continue;
             } else {
-                this._elements.unshift(s);
+                throw new Error("invalid inputs " + e);
             }
-            // end of one element and its operations
-            tokenizer.getAndCheckNext("@");
+
         }
     }
 
@@ -52,11 +43,16 @@ class PROGRAM {
      * Override function
      * evaluate
      */
-    evaluate(mainCanvas) {
+    evaluate(mainCanvas,varTable) {
 
-        for(let i = 0; i < this._elements.length; i++) {
-            let element = this._elements[i];
-            element.evaluate(mainCanvas);
+        for(let i = 0; i < this.def_elements.length; i++) {
+            let element = this.def_elements[i];
+            element.evaluate(varTable);
+        }
+
+        for (let i = 0; i < this.draw_elements.length; i++) {
+            let element = this.draw_elements[i];
+            element.evaluate(mainCanvas,varTable);
         }
     }
 }

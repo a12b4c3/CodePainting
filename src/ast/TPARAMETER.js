@@ -63,22 +63,13 @@ class TPARAMETER {
      * evaluate
      */
     evaluate(mainCanvas) {
-        const mainContext = mainCanvas.getContext('2d');
-        const dcontext = DynamicCanvas.getDContext()
+        const dcontext = DynamicCanvas.getDContext();
         DynamicCanvas.clearDContext();
-        mainContext.font = this._fontsize + "px " + this._font;
-        mainContext.fillStyle = this._fillcolor;
-        let textwidth = () => {
-            let totalwidth = 0;
-            for (let i=0; i < this._comment.length; i++) {
-                totalwidth += Math.round(mainContext.measureText(this._comment[i]).width);
-            }
-            return totalwidth;
-        };
-        const textheight = this._fontsize * 1.5;
-        mainContext.fillRect(this._x, this._y, textwidth, textheight);
-        mainContext.fillStyle = this._fontcolor;
-        mainContext.fillText(this._comment, this._x, this._y);
+        dcontext.font = this._fontsize.toString(10) + "px " + this._font;
+        dcontext.fillStyle = this._fontcolor;
+        dcontext.rotate(this._rotation);
+        // TODO: set background color
+        dcontext.fillText(this._comment, this._x, this._y);
     }
 }
 

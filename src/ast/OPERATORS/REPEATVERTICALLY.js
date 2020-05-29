@@ -1,3 +1,4 @@
+
 import Tokenizer from "../../libs/tokenizer.js";
 import {ThrowInvalidOperationParameterError} from "../../libs/ErrorMsgWriter.js";
 import DynamicCanvas from "../../libs/DynamicCanvas.js";

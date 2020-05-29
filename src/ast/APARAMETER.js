@@ -71,6 +71,7 @@ class APARAMETER {
             }
         }
         tokenizer.getNext();
+        console.log("I finisehd parsing " + this._shapename);
     }
 
     /**

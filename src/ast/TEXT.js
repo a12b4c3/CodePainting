@@ -7,6 +7,7 @@ import REPEATHORIZONTALLY from "./OPERATORS/REPEATHORIZONTALLY.js";
 import REPEATVERTICALLY from "./OPERATORS/REPEATVERTICALLY.js";
 import {ThrowInvalidOperationParameterError} from "../libs/ErrorMsgWriter.js";
 import DynamicCanvas from "../libs/DynamicCanvas.js";
+import OPARAMETER from "./OPARAMETER.js";
 
 
 class TEXT {
@@ -27,7 +28,7 @@ class TEXT {
 
         // while "@" is not hit, there are still more operations for
         // this element.
-        while(!tokenizer.checkToken("@") && tokenizer.moreTokens()) {
+        while(!tokenizer.checkToken("@") && tokenizer.moreTokens() && !tokenizer.checkToken("}")) {
             tokenizer.getAndCheckNext(".");
             let tok = tokenizer.getNext();
             let o;

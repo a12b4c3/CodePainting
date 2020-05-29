@@ -1,28 +1,25 @@
 /**
  OParameter class
  **/
-import tokenizer from "../libs/tokenizer";
 
-class OPARAMETER extends Node {
+import {ThrowInvalidOperationParameterError} from "../libs/ErrorMsgWriter.js";
+import REPEATHORIZONTALLY from "./OPERATORS/REPEATHORIZONTALLY.js";
+import REPEATVERTICALLY from "./OPERATORS/REPEATVERTICALLY.js";
 
-    constructor() {
-        super();
+class OPARAMETER {
+
+    getOp(operator){
+        if (operator === "repeathorizontally") {
+            return new REPEATHORIZONTALLY();
+
+        } else if (operator === "repeatvertically") {
+            return new REPEATVERTICALLY();
+        } else {
+             ThrowInvalidOperationParameterError(tok);
+        }
+
     }
 
-    /**
-     * Override function
-     * parse
-     */
-    parse(tokenizer){
-        this.name= tokenizer.getNext();
-        tokenizer.getAndCheckNext("=");
-        this.value = tokenizer.getNext();
-    }
-
-    /**
-     * Override function
-     * evaluate
-     */
-    evaluate() {
-    }
 }
+
+export default OPARAMETER;

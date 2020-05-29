@@ -177,3 +177,6 @@ OPARAMETER ::- <<depends on the operator...>>
 * fontcolor (default: black)
 * fillcolor (default: none)
 * rotation (default: 0deg)
+
+## Acknowledgement
+* We used tokenizer.js from class as a reference code for our own tokenizer.js implementation.

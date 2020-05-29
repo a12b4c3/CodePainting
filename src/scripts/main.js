@@ -34,7 +34,9 @@ function main() {
     console.log("the input code is: " + input_code);
     if (input_code.length > 0) {
         let literals = buildLiteralsList();
-        Tokenizer.makeTokenizer(input_code, literals);
+        Tokenizer.makeTokenizer(input_code, literals)
+        const tokenizer = Tokenizer.getTokenizer();
+        tokenizer.updateTokenizer(input_code, literals);
         console.log(Tokenizer.getTokenizer().tokens);
         let p = new PROGRAM();
         p.parse();

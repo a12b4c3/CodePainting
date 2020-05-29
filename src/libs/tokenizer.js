@@ -100,6 +100,13 @@ class Tokenizer {
         return this.currentToken < this.tokens.length;
     }
 
+    updateTokenizer(input, literalslist) {
+        this.currentToken = 0;
+        this.program = input;
+        this.literals = literalslist;
+        this._tokenize();
+    }
+
     static makeTokenizer(filename, literals) {
         if (this.theTokenizer === undefined){
             this.theTokenizer = new Tokenizer(filename,literals);
@@ -109,6 +116,7 @@ class Tokenizer {
     static getTokenizer() {
         return this.theTokenizer;
     }
+
 
 }
 

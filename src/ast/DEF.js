@@ -35,7 +35,7 @@ class DEF{
         tokenizer.getAndCheckNext("}");
     }
 
-    evaluate(varTable){
+   async evaluate(varTable){
         console.log("I am put " + this._name + "in to varTable");
         const dcontext = DynamicCanvas.getDContext();
         const tmpCanvas = DynamicCanvas.cloneCanvas(dcontext.canvas);
@@ -48,7 +48,7 @@ class DEF{
             }
         }
         this._owncanvas = tmpCanvas;
-        varTable.push(this);
+       await varTable.push(this);
     }
 }
 

@@ -50,6 +50,7 @@ class PROGRAM {
             element.evaluate(varTable);
         }
 
+
         for (let i = 0; i < this.draw_elements.length; i++) {
             let element = this.draw_elements[i];
             element.evaluate(mainCanvas,varTable);

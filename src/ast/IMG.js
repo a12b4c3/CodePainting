@@ -52,18 +52,21 @@ class IMG {
      * evaluate
      */
 // img(name=star/heart x=10 y=10 scale=1)
-    evaluate(mainCanvas, varTable) {
+   async evaluate(mainCanvas, varTable) {
         const dcanvas = DynamicCanvas.getDCanvas();
         const dcontext = DynamicCanvas.getDContext();
-        let draw = (async ()=> {await this._imgParameter.evaluate(mainCanvas);})
-        draw().then(()=> {
-            for(let i = 0; i < this._operations.length; i++) {
-                this._operations[i].evaluate(mainCanvas, varTable);
-            }
-            DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
-        }).catch(() => {
-            console.log("couldn't load the image");
-        });
+        await this._imgParameter.evaluate(mainCanvas, varTable)
+            .then(()=>{
+                for(let i = 0; i < this._operations.length; i++) {
+                    this._operations[i].evaluate(mainCanvas, varTable);
+                }
+
+                DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));
+
+            });
+
+        console.log("hahahahahahah");
+
     }
 }
 

@@ -2,9 +2,9 @@
 IParameter class
  **/
 
-import {ThrowInvalidArtParameterError} from "../libs/ErrorMsgWriter.js";
-import Tokenizer from "../libs/tokenizer.js";
 import {ThrowInvalidImgParameterError} from "../libs/ErrorMsgWriter.js";
+import Tokenizer from "../libs/tokenizer.js";
+import DynamicCanvas from "../libs/DynamicCanvas.js";
 
 class IPARAMETER {
     _x = 0;         // x-dim - pixels

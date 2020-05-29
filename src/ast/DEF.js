@@ -1,9 +1,14 @@
 import Tokenizer from "../libs/tokenizer.js";
 import ELEMENT from "./ELEMENT.js";
+import DynamicCanvas from "../libs/DynamicCanvas.js";
+import IPARAMETER from "./IPARAMETER.js";
+import IMG from "./IMG.js";
+
 
 class DEF{
     _name;
     _elements=[];
+    _owncanvas;
 
     parse(){
         const tokenizer = Tokenizer.getTokenizer();
@@ -32,6 +37,17 @@ class DEF{
 
     evaluate(varTable){
         console.log("I am put " + this._name + "in to varTable");
+        const dcontext = DynamicCanvas.getDContext();
+        const tmpCanvas = DynamicCanvas.cloneCanvas(dcontext.canvas);
+        for(let i =0; i<this._elements.length;i++) {
+            let e = this._elements[i];
+            if(e instanceof IMG) {
+                e.evaluate(tmpCanvas, varTable);
+            } else {
+                e.evaluate(tmpCanvas);
+            }
+        }
+        this._owncanvas = tmpCanvas;
         varTable.push(this);
     }
 }

@@ -11,7 +11,8 @@ class IPARAMETER {
     _y = 0;         // y-dim - pixels
     _scale = 1;     // int - scaling factor
     _rotation = 0;  // int - deg
-    _name = "";     // mandatory filename, String
+    _name = "";     // filename, String
+    _varname = "";  // variable name, String
 
 
     /**
@@ -27,6 +28,9 @@ class IPARAMETER {
             if (tok === "name") {
                 tokenizer.getAndCheckNext("=");
                 this._name = tokenizer.getNext();
+            } else if (tok === "varname"){
+                tokenizer.getAndCheckNext("=");
+                this._varname = tokenizer.getNext();
             } else if (tok === "x") {
                 tokenizer.getAndCheckNext("=");
                 this._x = tokenizer.getNext();
@@ -49,14 +53,27 @@ class IPARAMETER {
      * Override function
      * evaluate
      */
-    async evaluate(mainCanvas) {
+    async evaluate(mainCanvas, varTable) {
         const dcontext = DynamicCanvas.getDContext();
         DynamicCanvas.clearDContext();
         // mainCanvas.getContext('2d').fillStyle = "black";
         // let img = new Image();
         // img.src = "../images/" + this._name + ".svg";
         // dcontext.drawImage(img, this._x, this._y);
-        let loadedImg = await this._loadImg();
+        let loadedImg = null;
+        if(this._varname === "") {
+            loadedImg = await this._loadImg();
+        } else if(this._name === "") {
+            console.log("helloo");
+            let index = varTable.find(element => element._name === this._varname);
+            console.log(varTable[index]._name);
+            if(index === undefined) {
+                throw new Error(this._varname + "is not in the var Table");
+            }
+            loadedImg = new Image();
+            loadedImg.src = varTable[index]._owncanvas.toDataURL();
+            console.log(loadedImg.src);
+        }
         dcontext.drawImage(loadedImg, this._x, this._y, this._scale*10, this._scale*10);
         if (loadedImg) {
             return Promise.resolve();

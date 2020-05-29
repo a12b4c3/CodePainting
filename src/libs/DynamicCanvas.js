@@ -24,6 +24,13 @@ class DynamicCanvas {
         return DynamicCanvas.instance;
     }
 
+    getContext() {
+        if (!DynamicCanvas.instance) {
+            DynamicCanvas.instance = new DynamicCanvas();
+        }
+        return DynamicCanvas.instance._context;
+    }
+
     getDContext() {
         if (!DynamicCanvas.instance) {
             DynamicCanvas.instance = new DynamicCanvas();

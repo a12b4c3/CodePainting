@@ -1,37 +1,47 @@
 import Tokenizer from "../libs/tokenizer.js";
+import ELEMENT from "./ELEMENT.js";
+import IPARAMETER from "./IPARAMETER.js";
+import IMG from "./IMG.js";
 
 
 class DRAW{
-    draw_list=[]; //list of drawing operations
+    _elements =[]; //list of drawing operations
 
     parse(){
         console.log("I am parsing drawing");
         const tokenizer = Tokenizer.getTokenizer();
-        tokenizer.getNext(); //"("
-        while(!tokenizer.checkToken(")")) {
-            let toBeDrawn = tokenizer.getNext();
-            console.log(toBeDrawn);
-            this.draw_list.push(toBeDrawn);
+        tokenizer.getNext(); //"{"
+
+        while(tokenizer.moreTokens() && !tokenizer.checkToken("}")) {
+            let element = tokenizer.getNext();
+            let e = new ELEMENT();
+            let s = e.getELE(element);
+            s.parse();
+
+            if (s.constructor.name !== "BACKGROUND") {
+                this._elements.push(s);
+            } else {
+                this._elements.unshift(s);
+            }
+            // end of one element and its operations
+            if(tokenizer.checkToken("@")) {
+                tokenizer.getAndCheckNext("@");
+            }
         }
 
-        tokenizer.getAndCheckNext(")");
+        tokenizer.getAndCheckNext("}");
 
     }
 
     evaluate(mainCanvas, varTable) {
         console.log("I am gonna drawing ");
-        for(let i = 0; i < this.draw_list.length; i++) {
-            let e = this.draw_list[i];
-            let index = varTable.find(element => element._name === e);
-            if(index === undefined) {
-                throw new Error(e + "is not in the var Table");
+        for(let i = 0; i < this._elements.length; i++) {
+            let e = this._elements[i];
+            if(e instanceof IMG) {
+                e.evaluate(mainCanvas, varTable);
+            } else {
+                e.evaluate(mainCanvas);
             }
-            let s = varTable[i];
-            for(let j = 0; j <s._elements.length; j++) {
-                let ss = s._elements[j];
-                ss.evaluate(mainCanvas);
-            }
-
         }
     }
 

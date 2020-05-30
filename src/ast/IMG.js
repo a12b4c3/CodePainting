@@ -59,6 +59,7 @@ class IMG {
             .then(()=>{
                 for(let i = 0; i < this._operations.length; i++) {
                     this._operations[i].evaluate(mainCanvas, varTable);
+                    console.log("hi");
                 }
 
                 DynamicCanvas.mergeToCanvas(mainCanvas.getContext('2d'));

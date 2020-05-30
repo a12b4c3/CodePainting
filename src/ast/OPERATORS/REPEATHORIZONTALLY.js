@@ -35,6 +35,7 @@ class REPEATHORIZONTALLY{
         for (let i = 0; i < this._repeat; i++) {
             dcontext.drawImage(ogDynamicCanvas, next_x, 0, 700, 700);
             next_x = next_x + Number(this._spacing);
+            console.log("Iam horizontal");
         }
     }
 

@@ -21,12 +21,10 @@ const baseLiterals = ["art", "img", "text", "\\(", "\\)", "\\.", "=", " ", "back
 const artParamLiterals = [];
 const textParamLiterals = [];
 const imgParamLiterals = [];
-
 // TODO remove this after testing is done
-// document.getElementById('paintcode').innerText = "art(shapename='hello' x=10 y=10 w=100 h=100)\n img(name='star' scale=1).repeathorizontally(spacing=10 repeat=10)\n text(comment='hello how are you')";
-// document.getElementById('paintcode').innerText = "art(shapename='hello' x=23 y=23 w=320 h=330).repeathorizontally(spacing=10 repeat=10).repeatvertically(spacing=100 repeat=30)";
-document.getElementById('paintcode').innerText = "art(shapename=circle x=23 y=23 w=320 h=330)";
-
+// document.getElementById('paintcode').innerText = "art(shapename=hello x=10 y=10 w=100 h=100)\n img(name='star' scale=1).repeathorizontally(spacing=10 repeat=10)\n text(comment='hello how are you')";
+document.getElementById('paintcode').innerText = "img(name=star x=200 y=90 scale=1 rotation=30).repeatvertically(spacing=50 repeat=5)";
+// "text(comment=enjoyYourLife font=Georgia fontsize=25 fontcolor=brown rotation=10).repeatvertically(spacing=50 repeat=6)"
 
 // function definitions
 function main() {
@@ -36,18 +34,19 @@ function main() {
     console.log("the input code is: " + input_code);
     if (input_code.length > 0) {
         let literals = buildLiteralsList();
-        Tokenizer.makeTokenizer(input_code, literals);
+        Tokenizer.makeTokenizer(input_code, literals)
+        const tokenizer = Tokenizer.getTokenizer();
+        tokenizer.updateTokenizer(input_code, literals);
         console.log(Tokenizer.getTokenizer().tokens);
         let p = new PROGRAM();
         p.parse();
-        p.evaluate(mainCanvas,varTable);
+        p.evaluate(mainCanvas);
         mainContext.stroke();
         mainContext.fill();
     } else {
         alert('No input code, type something!');
     }
 }
-
 
 function buildLiteralsList() {
     const toBuild = [baseLiterals];
@@ -104,11 +103,11 @@ function testcode() {
 }
 
 
-mainContext.translate(100,100);
-mainContext.rotate(Math.PI/4);
-mainContext.translate(0,0);
-
-mainContext.setTransform(1,0,0,1,0,0);
+// mainContext.translate(100,100);
+// mainContext.rotate(Math.PI/4);
+// mainContext.translate(0,0);
+//
+// mainContext.setTransform(1,0,0,1,0,0);
 
 
 function drawImageToCanvas(image, x, y, scale, rotation, ccanvas) {

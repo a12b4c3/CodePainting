@@ -75,19 +75,13 @@ class IPARAMETER {
         }
     }
 
-    async _loadImg() {
-        let drawn = await (async () => {
-            return new Promise((resolve, reject) => {
-                let img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = () => reject;
-                img.src = "images/" + this._name + ".svg";
-                // dcontext.drawImage(img, this._x, this._y);
-                // mainCanvas.getContext('2d').drawImage(img, 300, 300);
-                // mainCanvas.getContext('2d').fillRect(100,100,10,10);
-            });
-        });
-        return drawn();
+    _loadImg() {
+        return new Promise((resolve, reject) => {
+            let img = new Image()
+            img.onload = () => resolve(img)
+            img.onerror = reject
+            img.src = "images/" + this._name + ".svg";
+        })
     }
 }
 

@@ -48,7 +48,7 @@ class DEF{
             }
         }
         this._owncanvas = tmpCanvas;
-       await varTable.push(this);
+        varTable.push(this);
     }
 }
 

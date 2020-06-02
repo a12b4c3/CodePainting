@@ -1,10 +1,74 @@
 # CodePainting
-# [Click here to go to App](https://a12b4c3.github.io/CodePainting/src/ "CodePainting App")
+[Click here to go to App](https://a12b4c3.github.io/CodePainting/src/ "CodePainting App")
 
 ## Goal
 Code painting is designed to let gradeschool students learn to code, through a fun and intuitive language. It should be easy to understand, requring little knowledge of programming. It should be visual, and use programming syntaxes similar to those seen in existing languages.
 ## Overview
 Users can paint with default line art images (circle, rectangle, cloud, art), svg images, or add text onto the canvas. All art, images, and text will be called 'elements'. Every line of input artts with an element, followed by zero or more operations, denoted using dot operaters ('.'). Operations are commands which 'do' something with that image, such as repeatedly draw it across a screen, or draws it into the shape of a circle, or scatters it randomly over the screen...etc.
+
+## QuickStart Overview of All Features
+### Making A Flag
+1. To draw something, we issue the draw{<command>}. For example, lets draw a white flag, using a rectangular art element.
+```
+draw{art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)}
+```
+
+2. Next, let's begin to build an American flag. CodePainting has layers, elements draw later will appear on TOP of elements drawn earlier. We want to start drawing the stripes of the flag. Let's draw a red rectangle.
+```
+draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red)}
+```
+
+3. We need to do this rectangle all the way down... we could either issue the same command again and again like so..
+```
+draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red)
+art(shapename=rectangle x=100 y=140 w=500 h=20 fillcolor=red linecolor=red)
+art(shapename=rectangle x=100 y=180 w=500 h=20 fillcolor=red linecolor=red)}
+.....
+```
+or we can use a feature of codepainting - OPERATORS!
+```
+draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red).repeatvertically(spacing=43 repeat=6)}
+```
+Notice that we do the same command, but in one single line! The red bar will now copy itself over and over, setting itself 43pixels apart and repeating 6 more times.
+
+4. Now we need to build the blue rectangle and put it on the top left corner.. this is easy.
+```
+draw{art(shapename=rectangle x=100 y=100 w=250 h=150 fillcolor=blue linecolor=blue)}
+```
+
+5. We need to fill in the stars now... Note that the american flag alternates 6 stars in the first row, 5 stars on the second, and repeats. We can do this easily - by CHAINING OPERATORS! We will use circles instead of stars.
+```
+draw{art(shapename=circle x=118 y=118 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=5).repeatvertically(spacing=56 repeat=2)}
+
+draw{art(shapename=circle x=140 y=145 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=4).repeatvertically(spacing=56 repeat=1)}
+```
+
+6. And we have a flag! Let's add a cool background with the following command.
+```
+draw{background(color=teal)}
+```
+Oops! Why did the flag disappear?? Oh! Remember that CodePainting paints in layers. If we paint the background last, it will paint OVER the flag! Let's make the background paint first. Much better!
+
+7. What if we want to use this flag again? Let's remove the background and create a variable called "usflag". We can do that by defining the variable, lets remove all of the "draw" calls and only keep the element calls. To use the flag, we call draw with an img operator. Be sure to name the variable name in the varname parameter of the img element, as well as the position and scale.
+```
+def usflag{art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)
+art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red).repeatvertically(spacing=43 repeat=6)
+art(shapename=rectangle x=100 y=100 w=250 h=150 fillcolor=blue linecolor=blue)
+background(color=teal)
+art(shapename=circle x=118 y=118 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=5).repeatvertically(spacing=56 repeat=2)
+art(shapename=circle x=140 y=145 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=4).repeatvertically(spacing=56 repeat=1)
+}
+
+draw{img(varname=usflag x=0 y=0 scale=1)}
+```
+
+And thats it! To summarize, codepainting supports...
+* basic shape manipulation of circles and rectangles (width, height, x, y)
+* basic color manipulation of shape elements (linecolor, linewidth, fillcolor)
+* img manipulation
+* operations on the elements
+* chaining of operations on elements
+* variable naming and variable painting
 
 <b> types of elements </b>
 1. art - these are base elements supplied by the program that can be manipulated with more granularity. eg. position, rotiation, the line color, line width, background color, etc...

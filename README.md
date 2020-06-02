@@ -70,6 +70,8 @@ And thats it! To summarize, codepainting supports...
 * chaining of operations on elements
 * variable naming and variable painting
 
+## Elements
+
 <b> types of elements </b>
 1. art - these are base elements supplied by the program that can be manipulated with more granularity. eg. position, rotiation, the line color, line width, background color, etc...
 2. images - these are svg images which can be manipulated in a basic manner. eg. rotation, scale, position. However, they are typically more rich in their color/styling.

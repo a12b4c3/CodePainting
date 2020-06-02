@@ -8,17 +8,17 @@ Users can paint with default line art images (circle, rectangle, cloud, art), sv
 
 ## QuickStart Overview of All Features
 ### Making A Flag
-1. To draw something, we issue the draw{command}. For example, lets draw a white flag, using a rectangular art element.
+1. To draw something, we issue the draw{command}. For example, lets draw a white flag, using a rectangular art element. Don't forget to press "Paint!" to paint your code onto the canvas!
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)}
 ```
 
-2. Next, let's begin to build an American flag. CodePainting has layers, elements draw later will appear on TOP of elements drawn earlier. We want to start drawing the stripes of the flag. Let's draw a red rectangle.
+2. Next, let's begin to build an American flag. CodePainting has layers, elements drawn later will appear on TOP of elements drawn earlier. We want to start drawing the stripes of the flag. Let's draw a red rectangle.
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red)}
 ```
 
-3. We need to do this rectangle all the way down... we could either issue the same command again and again like so..
+3. We need to do this with rectangle all the way down... we could either issue the same command again and again like so..
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red)
 art(shapename=rectangle x=100 y=140 w=500 h=20 fillcolor=red linecolor=red)
@@ -29,14 +29,14 @@ or we can use a feature of codepainting - OPERATORS!
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red).repeatvertically(spacing=43 repeat=6)}
 ```
-Notice that we do the same command, but in one single line! The red bar will now copy itself over and over, setting itself 43pixels apart and repeating 6 more times.
+Notice that we can accomplish the same task, but in one single line! The red bar will now copy itself over and over, setting itself 43pixels apart and repeating 6 more times.
 
 4. Now we need to build the blue rectangle and put it on the top left corner.. this is easy.
 ```
 draw{art(shapename=rectangle x=100 y=100 w=250 h=150 fillcolor=blue linecolor=blue)}
 ```
 
-5. We need to fill in the stars now... Note that the american flag alternates 6 stars in the first row, 5 stars on the second, and repeats. We can do this easily - by CHAINING OPERATORS! We will use circles instead of stars.
+5. We need to fill in the stars now... Note that the american flag alternates 6 stars in the first row, 5 stars on the second, and repeats. We can do this easily - by CHAINING OPERATORS! We will use circles instead of stars. Without operators, we would have needed to copy each star over 20x, while keeping track of the x and y-offsets! Note how easy this task becomes with operators!
 ```
 draw{art(shapename=circle x=118 y=118 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=5).repeatvertically(spacing=56 repeat=2)}
 

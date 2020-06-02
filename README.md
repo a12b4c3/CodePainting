@@ -8,7 +8,7 @@ Users can paint with default line art images (circle, rectangle, cloud, art), sv
 
 ## QuickStart Overview of All Features
 ### Making A Flag
-1. To draw something, we issue the draw{<command>}. For example, lets draw a white flag, using a rectangular art element.
+1. To draw something, we issue the draw{command}. For example, lets draw a white flag, using a rectangular art element.
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)}
 ```

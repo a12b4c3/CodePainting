@@ -8,6 +8,18 @@ Users can paint with default line art images (circle, rectangle, cloud, art), sv
 
 ## QuickStart Overview of All Features
 ### Making A Flag
+We want to make something that looks like this. (Copy and paste the code in the text box)
+```
+draw {art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)
+art(shapename=rectangle x=100 y=100 w=500 h=20 fillcolor=red linecolor=red).repeatvertically(spacing=43 repeat=6)
+art(shapename=rectangle x=100 y=100 w=250 h=150 fillcolor=blue linecolor=blue)
+background(color=teal)
+art(shapename=circle x=118 y=118 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=5).repeatvertically(spacing=56 repeat=2)
+art(shapename=circle x=140 y=145 w=10 h=10 fillcolor=yellow linecolor=yellow).repeathorizontally(spacing=43 repeat=4).repeatvertically(spacing=56 repeat=1)
+}
+```
+The code will be explained, step by step.
+
 1. To draw something, we issue the draw{command}. For example, lets draw a white flag, using a rectangular art element. Don't forget to press "Paint!" to paint your code onto the canvas!
 ```
 draw{art(shapename=rectangle x=100 y=100 w=500 h=300 fillcolor=white linecolor=white)}

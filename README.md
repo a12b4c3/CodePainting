@@ -1,4 +1,6 @@
 # CodePainting
+[App](https://a12b4c3.github.io/CodePainting/src/ "CodePainting App")
+
 ## Goal
 Code painting is designed to let gradeschool students learn to code, through a fun and intuitive language. It should be easy to understand, requring little knowledge of programming. It should be visual, and use programming syntaxes similar to those seen in existing languages.
 ## Overview

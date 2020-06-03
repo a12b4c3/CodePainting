@@ -161,9 +161,9 @@ They are not the same because the first one draws circles with art (in this case
       being repeated 
       horizontally
 ```
-### 7. we can group together elements to create one larger element. Assume that we have the following elements: cloud, circle. we can use this to create a thought bubble by defining a new element. 
+### 7. we can group together elements to create varialbe. Assume that we have the following elements: cloud, circle. we can use this to create a thought bubble by defining a new varialbe. 
 ```
-group as thoughtbubble {
+def thoughtbubble {
 art(name=cloud spdl)
 art(name=circle spdl)
 art(name=circle spdl)
@@ -208,8 +208,11 @@ art(name=star x  = 12 y= 32 w =29 h=  239)
 ```
 ## EBNF
 ```
-PROGRAM ::- ELEMENT.OPERATION* | "//"STRING"//"
-ELEMENT ::- ART | IMG | TEXT
+PROGRAM ::-  (DEF * DRAW ?)*
+DEF ::- "def"  "{" ELEMENT.OPERATION* "}"
+DRAW ::- "draw" "(" ELEMENT.name ")"
+ELEMENT ::- ART | IMG | TEXT | BACKGROUND
+BACKGROUND ::- "background"("color")
 ART ::- "art"(APARAMETER)
 APARAMETER ::- "x" | "y" | "w" | "h" | "rotation" | "linecolor" | "linewidth" | "backgroundcolor" | "name"
 IMG ::- "img"(IPARAMETER?)
@@ -224,7 +227,6 @@ OPARAMETER ::- <<depends on the operator...>>
 ## The following types of elements are supported, and their possible parameters are described. The default values are also supplied for each paramter, as well as the unit each value is in.
 ### Supported Art
 * circle
-* triangle (simple equilateral triangle)
 * rectangle
 
 #### Art paramters
@@ -247,6 +249,7 @@ OPARAMETER ::- <<depends on the operator...>>
 * scale (default: 1)
 * rotation (default: 0deg)
 * name (filename, string)
+* varname (string)
 
 ### Supported Text
 * customizable text
